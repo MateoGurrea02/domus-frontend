@@ -1,8 +1,5 @@
 import './App.css'
-import CardHome from './components/CardHome'
-import Footer from './components/Footer'
-import Header from './components/Header'
-import foto from './assets/casa1.jpeg'
+
 
 function App() {
 

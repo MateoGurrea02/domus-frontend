@@ -4,10 +4,10 @@ import logo from '../assets/Image 10.png'
 const Header = () => {
   return(
     <>
-      <nav className="bg-white border-gray-200 px-10 py-5 md:px-20 md:py-0">
+      <nav className="bg-white border-gray-200 px-10 py-5 md:px-20 md:py-0" >
         <div className="flex flex-wrap items-center justify-between mx-auto">
           <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
-              <img src={logo} className="h-20 md:h-40" alt="Domus logo" />
+              <img src={logo} className="h-10 md:h-24" alt="Domus logo" />
               <span className="self-center text-2xl font-semibold whitespace-nowrap"></span>
           </a>
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
