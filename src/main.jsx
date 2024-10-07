@@ -8,6 +8,7 @@ import 'aos/dist/aos.css'
 import Home from './pages/Home.jsx'
 import Login from './pages/login/Login.jsx'
 import Register from './pages/register/Register.jsx'
+import RentalList from './pages/admin/RentalList.jsx'
 
 AOS.init();
 
@@ -24,6 +25,10 @@ const routes = [
     path: "/register",
     element: <Register/>,
   },
+  {
+    path:"/admin/rentals/",
+    element: <RentalList/>,
+  }
 ]
 
 createRoot(document.getElementById("root")).render(
