@@ -10,6 +10,7 @@ import Login from './pages/login/Login.jsx'
 import Register from './pages/register/Register.jsx'
 import RentalList from './pages/admin/RentalList.jsx'
 import PropertyList from './pages/PropertyList.jsx';
+import UserList from './pages/admin/UserList.jsx';
 
 AOS.init();
 
@@ -29,6 +30,10 @@ const routes = [
   {
     path:"/admin/rentals/",
     element: <RentalList/>,
+  },
+  {
+    path:"/admin/users/",
+    element: <UserList/>,
   },
   {
     path:"/property",
