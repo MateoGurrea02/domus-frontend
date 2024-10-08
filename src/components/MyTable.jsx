@@ -1,8 +1,8 @@
 const MyTable = ({titleList, data}) => {
   return (
     <div className="flex flex-col justify-center items-center">
-      <div className="mx-auto flex w-full mt-20 flex-col justify-center px-5 pt-0 md:h-[unset] md:max-w-[92%] lg:h-[60vh] lg:max-w-[80%] lg:px-6 xl:pl-0">
-        <div className="relative flex w-full flex-col pt-[20px] md:pt-0">
+      <div className="mx-auto flex w-full flex-col justify-center px-5 md:max-w-[92%]  lg:max-w-[80%]">
+        <div className="relative flex w-full flex-col ">
           <div className="h-full w-full rounded-lg">
             <div className="rounded-lg border bg-card text-card-foreground shadow-sm h-full w-full p-0 border-zinc-800 sm:overflow-auto">
               <div>
