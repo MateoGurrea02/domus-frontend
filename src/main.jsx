@@ -10,6 +10,7 @@ import Login from './pages/login/Login.jsx'
 import Register from './pages/register/Register.jsx'
 import RentalList from './pages/admin/RentalList.jsx'
 import PropertyList from './pages/PropertyList.jsx';
+import PropertyDetail from './pages/PropertyDetail.jsx';
 
 AOS.init();
 
@@ -33,7 +34,12 @@ const routes = [
   {
     path:"/property",
     element: <PropertyList/>,
+  },
+  {
+    path:"/property/detail",
+    element: <PropertyDetail/>,
   }
+
 ]
 
 createRoot(document.getElementById("root")).render(
