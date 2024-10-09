@@ -9,11 +9,13 @@ import Home from './pages/Home.jsx'
 import Login from './pages/login/Login.jsx'
 import Register from './pages/register/Register.jsx'
 import RentalList from './pages/admin/RentalList.jsx'
+import PropertyDetail from './pages/PropertyDetail.jsx';
 // import PropertyList from './pages/PropertyList.jsx';
 import UserList from './pages/admin/UserList.jsx';
 import ClientList from './pages/admin/ClientList.jsx';
 import PropertyList from './pages/admin/PropertyList.jsx';
 import RentalSearch from './pages/RentalSearch.jsx';
+
 
 AOS.init();
 
@@ -47,13 +49,12 @@ const routes = [
     element: <PropertyList/>,
   },
   {
+    path:"/property/detail",
+    element: <PropertyDetail/>,
+  },{
     path:"/rental-search/",
     element: <RentalSearch/>,
   },
-  // {
-  //   path:"/property",
-  //   element: <PropertyList/>,
-  // }
 ]
 
 createRoot(document.getElementById("root")).render(
