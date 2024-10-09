@@ -1,4 +1,4 @@
-import { Container } from "../components/container/container";
+import { Container } from "../components/container/Container";
 import FilterSearch from "../components/FilterSearch";
 import Header from "../components/Header"
 import CardProduct from "../components/CardProduct"
@@ -112,18 +112,18 @@ const RentalSearch = () => {
         <>
             <Header />
             <Container>
-                <div className="flex justify-between items-start">
-                    <div className="w-auto pt-10"> 
-                        <FilterSearch filters={rentalFilters} />
-                    </div>
-                    <div className="flex-1 flex flex-col"> 
-                        <h3 className="px-5 pb-4 text-gray-600"><span className="font-semibold">43</span> Propiedades a la venta</h3>
-                        {data.map((item) => (
-                            <div key={item.id} className="px-5 pb-5">
-                                <CardProduct data={item} />
-                            </div>
-                        ))}
-                    </div>
+                <div className="flex flex-col md:flex-row justify-between items-center md:items-start">
+                  <div className="w-auto pt-10 "> 
+                      <FilterSearch filters={rentalFilters} />
+                  </div>
+                  <div className="flex-1 flex flex-col"> 
+                      <h3 className="px-5 pb-4 text-gray-600"><span className="font-semibold">43</span> Propiedades a la venta</h3>
+                      {data.map((item) => (
+                          <div key={item.id} className="px-5 pb-5">
+                              <CardProduct data={item} />
+                          </div>
+                      ))}
+                  </div>
                 </div>
             </Container>
         </>

@@ -9,11 +9,13 @@ const Card = ({ data }) => {
   };
 
   return (
-    <div className="relative flex flex-col lg:flex-row bg-white shadow-md rounded-lg overflow-hidden w-full mx-auto">
-      <img src={data.imageUrl} alt={data.title} className="w-full lg:w-1/3 h-48 lg:h-full object-cover" />
+    <div className="relative flex flex-col lg:flex-row bg-gray-100 shadow-md rounded-lg overflow-hidden w-full mx-auto">
+      <div className=" w-full lg:w-2/5">
+      <img src={data.imageUrl} alt={data.title} className="w-full h-full object-cover" />
+      </div>
       <div className="p-4 flex flex-col justify-between w-full">
         <div className="flex flex-col">
-          <h2 className="text-xl font-semibold text-gray-600">Título: <span className='font-normal'>{data.title}</span></h2>
+          <h2 className="text-xl font-semibold text-gray-600 font-semibold mb-1">{data.title}</h2>
           <p className="text-gray-600 font-semibold">Dirección: <span className='font-normal'>{data.direction}</span></p>
           <p className="text-gray-600 font-semibold">Tipo: <span className='font-normal'>{data.type}</span></p>
           <p className="text-gray-600 font-semibold">Tamaño: <span className='font-normal'>{data.size}</span></p>
