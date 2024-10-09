@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const GenericFilter = ({ filters }) => {
+const FilterSearch = ({ filters }) => {
   const [filterState, setFilterState] = useState(
     filters.reduce((acc, filter) => {
       acc[filter.name] = filter.options.reduce((optAcc, option) => {
@@ -31,11 +31,11 @@ const GenericFilter = ({ filters }) => {
   };
 
   return (
-    <div className="w-64 p-4 bg-gray-200 rounded-lg">
+    <div className="w-64 p-4 bg-gray-100 rounded-lg">
       {filters.map((filter) => (
         <div
           key={filter.name}
-          className="mb-4 p-2 rounded-lg bg-gray-100"
+          className="mb-4 p-2 rounded-lg bg-gray-50"
         >
           <h3
             className="font-bold cursor-pointer flex justify-between"
@@ -67,4 +67,4 @@ const GenericFilter = ({ filters }) => {
   );
 };
 
-export default GenericFilter;
+export default FilterSearch;
