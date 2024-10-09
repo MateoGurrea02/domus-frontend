@@ -1,5 +1,6 @@
 import Header from '../../components/Header'
 import MyTable from '../../components/MyTable'
+import TitlePage from '../../components/title/Title'
 const RentalList = ()=>{
   let titleList = ['Propiedad','Cliente','Fecha Inicio','Fecha Fin','Monto Mensual','Estado','Acciones']
   let data = [
@@ -88,7 +89,7 @@ const RentalList = ()=>{
   return(
     <>
       <Header/>
-      <h2 className='text-4xl font-semibold ml-5 md:ml-40 m-5 md:m-20'>Lista de Alquileres</h2>
+      <TitlePage title='Lista de Alquileres'/>
       <MyTable titleList={titleList} data={data}/>
     </>
   )
