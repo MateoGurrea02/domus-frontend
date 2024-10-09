@@ -15,7 +15,7 @@ import UserList from './pages/admin/UserList.jsx';
 import ClientList from './pages/admin/ClientList.jsx';
 import PropertyList from './pages/admin/PropertyList.jsx';
 import RentalSearch from './pages/RentalSearch.jsx';
-
+import PropertySearch from './pages/PropertySearch.jsx';
 
 AOS.init();
 
@@ -51,9 +51,14 @@ const routes = [
   {
     path:"/property/detail",
     element: <PropertyDetail/>,
-  },{
+  },
+  {
     path:"/rental-search/",
     element: <RentalSearch/>,
+  },
+  {
+    path:"/property-search/",
+    element: <PropertySearch/>,
   },
 ]
 

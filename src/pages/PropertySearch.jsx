@@ -1,10 +1,10 @@
+import { Container } from "../components/container/Container";
 import FilterSearch from "../components/FilterSearch";
 import Header from "../components/Header"
 import CardProduct from "../components/CardProduct"
-import { Container } from "../components/container/Container";
 
-const RentalSearch = () => {
-    const rentalFilters = [
+const PropertySearch = () => {
+    const propertyFilters = [
         {
           name: 'propertyType',
           label: 'Tipo Propiedad',
@@ -20,10 +20,10 @@ const RentalSearch = () => {
           label: 'Precio',
           type: 'checkbox',
           options: [
-            { value: 'menosDe499', label: 'Menos de $499' },
-            { value: 'de500a1000', label: 'Desde $500 hasta $1000' },
-            { value: 'de1000a2000', label: 'Desde $1000 hasta $2000' },
-            { value: 'masDe2000', label: 'Más de $2000' },
+            { value: 'menosDe49999', label: 'Menos de $49999' },
+            { value: 'de50000a100000', label: 'Desde $50000 hasta $100000' },
+            { value: 'de100000a200000', label: 'Desde $100000 hasta $200000' },
+            { value: 'masDe200000', label: 'Más de $200000' },
           ],
         },
         {
@@ -58,9 +58,9 @@ const RentalSearch = () => {
           size: '85 mts2',
           state: 'Disponible',
           description: 'Departamento de 2 habitaciones, 1 baño, con excelentes vistas y a pocos metros de zonas comerciales y transporte.',
-          price: '1500',
+          price: '150000',
           rate:'4',
-          imageUrl: 'https://cdn1.infocasas.com.uy/repo/img/593614ef558b3_infocdn__alquilar-py.png',
+          imageUrl: 'https://st2.depositphotos.com/1277251/7958/i/450/depositphotos_79588208-stock-photo-house-for-sale-board-with.jpg',
         },
         {
             title: 'Casa Moderna con Jardín',
@@ -69,9 +69,9 @@ const RentalSearch = () => {
             size: '120 mts2',
             state: 'Disponible',
             description: 'Casa de 3 habitaciones y 2 baños, con un amplio jardín, garaje para 2 autos y acabados modernos en una zona residencial tranquila.',
-            price: '2500',
+            price: '250000',
             rate: '5',
-            imageUrl: 'https://cdn1.infocasas.com.uy/repo/img/593614ef558b3_infocdn__alquilar-py.png',
+            imageUrl: 'https://st2.depositphotos.com/1277251/7958/i/450/depositphotos_79588208-stock-photo-house-for-sale-board-with.jpg',
           },
           {
             title: 'Penthouse con Vista al Mar',
@@ -80,9 +80,9 @@ const RentalSearch = () => {
             size: '150 mts2',
             state: 'Disponible',
             description: 'Exclusivo penthouse de 3 habitaciones y 2 baños, con terraza privada, piscina y vistas panorámicas al mar.',
-            price: '5000',
+            price: '500000',
             rate: '5',
-            imageUrl: 'https://cdn1.infocasas.com.uy/repo/img/593614ef558b3_infocdn__alquilar-py.png',
+            imageUrl: 'https://st2.depositphotos.com/1277251/7958/i/450/depositphotos_79588208-stock-photo-house-for-sale-board-with.jpg',
           },
           {
             title: 'Loft Estilo Industrial',
@@ -91,9 +91,9 @@ const RentalSearch = () => {
             size: '70 mts2',
             state: 'En construcción',
             description: 'Loft de diseño industrial con techos altos, cocina integrada y espacios abiertos, ideal para jóvenes profesionales.',
-            price: '1300',
+            price: '130000',
             rate: '4',
-            imageUrl: 'https://cdn1.infocasas.com.uy/repo/img/593614ef558b3_infocdn__alquilar-py.png',
+            imageUrl: 'https://st2.depositphotos.com/1277251/7958/i/450/depositphotos_79588208-stock-photo-house-for-sale-board-with.jpg',
           },
           {
             title: 'Departamento Familiar en Zona Residencial',
@@ -102,9 +102,9 @@ const RentalSearch = () => {
             size: '95 mts2',
             state: 'Disponible',
             description: 'Departamento de 3 habitaciones y 2 baños, con balcón, áreas verdes y cercanía a parques y colegios.',
-            price: '1800',
+            price: '180000',
             rate: '4',
-            imageUrl: 'https://cdn1.infocasas.com.uy/repo/img/593614ef558b3_infocdn__alquilar-py.png',
+            imageUrl: 'https://st2.depositphotos.com/1277251/7958/i/450/depositphotos_79588208-stock-photo-house-for-sale-board-with.jpg',
           }
       ];
       return (
@@ -113,10 +113,10 @@ const RentalSearch = () => {
             <Container>
                 <div className="flex flex-col md:flex-row justify-between items-center md:items-start">
                   <div className="w-auto pt-10 "> 
-                      <FilterSearch filters={rentalFilters} />
+                      <FilterSearch filters={propertyFilters} />
                   </div>
                   <div className="flex-1 flex flex-col"> 
-                      <h3 className="px-5 pb-4 text-gray-600"><span className="font-semibold">43</span> Propiedades en alquiler</h3>
+                      <h3 className="px-5 pb-4 text-gray-600"><span className="font-semibold">58</span> Propiedades a la venta</h3>
                       {data.map((item) => (
                           <div key={item.id} className="px-5 pb-5">
                               <CardProduct data={item} />
@@ -131,4 +131,4 @@ const RentalSearch = () => {
 
 }
 
-export default RentalSearch
+export default PropertySearch
