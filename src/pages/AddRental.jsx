@@ -12,7 +12,7 @@ const NewRental = () => {
             <h2 className="text-2xl font-semibold mb-6 text-center">
               Registrar Nuevo Alquiler
             </h2>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={''} className="space-y-4">
               <div className="flex flex-wrap gap-4">
                 <select
                   name="propiedad"
