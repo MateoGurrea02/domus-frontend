@@ -19,6 +19,8 @@ import PropertySearch from './pages/PropertySearch.jsx';
 import NewRental from './pages/AddRental.jsx';
 import NewClient from './pages/AddClient.jsx';
 import NewProperty from './pages/AddProperty.jsx';
+import UserProvider from "./context/UserContext";
+import RutaProtegida  from './context/UserContext';
 
 AOS.init();
 
@@ -29,11 +31,11 @@ const routes = [
   },
   {
     path: "/login",
-    element: <Login />,
+    element: <RutaProtegida><Login /></RutaProtegida>,
   },
   {
     path: "/register",
-    element: <Register/>,
+    element: <RutaProtegida><Register/></RutaProtegida>,
   },
   {
     path:"/admin/rentals/",
@@ -80,6 +82,7 @@ const routes = [
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Router>
+    <UserProvider>
         <Routes>
         {
           routes.map(route => (
@@ -90,6 +93,7 @@ createRoot(document.getElementById("root")).render(
             />))
         }
       </Routes>
+    </UserProvider>
     </Router>
   </StrictMode>,
 )
