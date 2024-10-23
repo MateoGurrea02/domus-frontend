@@ -20,7 +20,8 @@ import NewRental from './pages/AddRental.jsx';
 import NewClient from './pages/AddClient.jsx';
 import NewProperty from './pages/AddProperty.jsx';
 import UserProvider from "./context/UserContext";
-import RutaProtegida  from './context/UserContext';
+import { IsLogged } from "./utils/IsLogged.jsx";
+import { IsAdmin } from './utils/IsAdmin.jsx';
 
 AOS.init();
 
@@ -31,15 +32,15 @@ const routes = [
   },
   {
     path: "/login",
-    element: <RutaProtegida><Login /></RutaProtegida>,
+    element:<IsLogged><Login /></IsLogged>,
   },
   {
     path: "/register",
-    element: <RutaProtegida><Register/></RutaProtegida>,
+    element: <IsLogged><Register/></IsLogged>,
   },
   {
     path:"/admin/rentals/",
-    element: <RentalList/>,
+    element: <IsAdmin><RentalList/></IsAdmin>,
   },
   {
     path:"/admin/users/",
