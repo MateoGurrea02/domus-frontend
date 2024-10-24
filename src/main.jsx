@@ -19,6 +19,9 @@ import PropertySearch from './pages/PropertySearch.jsx';
 import NewRental from './pages/AddRental.jsx';
 import NewClient from './pages/AddClient.jsx';
 import NewProperty from './pages/AddProperty.jsx';
+import UserProvider from "./context/UserContext";
+import { IsLogged } from "./utils/IsLogged.jsx";
+import { IsAdmin } from './utils/IsAdmin.jsx';
 
 AOS.init();
 
@@ -29,15 +32,15 @@ const routes = [
   },
   {
     path: "/login",
-    element: <Login />,
+    element:<IsLogged><Login /></IsLogged>,
   },
   {
     path: "/register",
-    element: <Register/>,
+    element: <IsLogged><Register/></IsLogged>,
   },
   {
     path:"/admin/rentals/",
-    element: <RentalList/>,
+    element: <IsAdmin><RentalList/></IsAdmin>,
   },
   {
     path:"/admin/users/",
@@ -80,6 +83,7 @@ const routes = [
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Router>
+    <UserProvider>
         <Routes>
         {
           routes.map(route => (
@@ -90,6 +94,7 @@ createRoot(document.getElementById("root")).render(
             />))
         }
       </Routes>
+    </UserProvider>
     </Router>
   </StrictMode>,
 )
