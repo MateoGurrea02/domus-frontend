@@ -28,7 +28,7 @@ const UserProvider = ({ children }) => {
         }
       }).then())
       if(tokenVerify.status == 200){
-        let data = {name:tokenVerify.data.name,type:tokenVerify.data.type,}
+        let data = {name:tokenVerify.data.name,type:tokenVerify.data.type,token:token.data.token}
         setUser(data)
         setIsAuth(true)
         setLocalStorage('user',data)
@@ -50,7 +50,7 @@ const UserProvider = ({ children }) => {
       "name": data.user,
       "email": data.email,
       "password": data.password,
-      "type":4
+      "type":data.type
     }).then())
     console.log(registerPetition)
 
