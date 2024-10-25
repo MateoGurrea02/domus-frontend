@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom"
 
 export const IsLogged = ({ children }) => {
   const { isAuth } = useContext(UserContext)
-  if (isAuth ) {
+  if (isAuth) {
     return <Navigate to='/'/>
   }
   return children

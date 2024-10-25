@@ -10,7 +10,6 @@ import Login from './pages/login/Login.jsx'
 import Register from './pages/register/Register.jsx'
 import RentalList from './pages/admin/RentalList.jsx'
 import PropertyDetail from './pages/PropertyDetail.jsx';
-// import PropertyList from './pages/PropertyList.jsx';
 import UserList from './pages/admin/UserList.jsx';
 import ClientList from './pages/admin/ClientList.jsx';
 import PropertyList from './pages/admin/PropertyList.jsx';
@@ -21,7 +20,8 @@ import NewClient from './pages/AddClient.jsx';
 import NewProperty from './pages/AddProperty.jsx';
 import UserProvider from "./context/UserContext";
 import { IsLogged } from "./utils/IsLogged.jsx";
-import { IsAdmin } from './utils/IsAdmin.jsx';
+import { IsUser } from './utils/IsUser.jsx';
+import { IsAdminRoute } from './utils/IsAdmin.jsx';
 
 AOS.init();
 
@@ -40,7 +40,7 @@ const routes = [
   },
   {
     path:"/admin/rentals/",
-    element: <IsAdmin><RentalList/></IsAdmin>,
+    element: <IsAdminRoute><RentalList/></IsAdminRoute>,
   },
   {
     path:"/admin/users/",

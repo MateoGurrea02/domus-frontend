@@ -2,20 +2,18 @@ import React from "react"
 import { Navigate } from "react-router-dom"
 import { getLocalStorage } from "./myLocalStorage"
 
-export const IsClientRoute = ({ children }) => {
+export const IsUserRoute = ({ children }) => {
   let user = getLocalStorage('user')
   if (user && user.type === 3) {
     return children
-  } else {
-    return <Navigate to="/" />
   }
+  return <Navigate to="/" />
 }
 
-export const IsClient = ({ children }) => {
+export const IsUser = ({ children }) => {
   let user = getLocalStorage('user')
   if (user && user.type === 3) {
     return children
-  } else {
-    return
   }
+  return
 }

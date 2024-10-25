@@ -2,10 +2,12 @@ import logo from '../assets/Image 10.png'
 import React, { useContext } from 'react';
 import { UserContext } from "../context/UserContext";
 import { Link } from 'react-router-dom';
+import { IsAdmin } from '../utils/IsAdmin';
 
 
 const Header = () => {
   const {isAuth,logout} = useContext(UserContext)
+
   return(
     <>
       <nav className="bg-white border-gray-200 px-10 py-5 md:px-20 md:py-0" >
@@ -51,6 +53,18 @@ const Header = () => {
                   <p href="#" className="block py-2 px-3 md:p-0 text-gray-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-gray-900 ">Alquileres</p>
                 </Link>
               </li>
+              <IsAdmin>
+                <li>
+                  <Link to={'/admin/users/'}>
+                    <p href="" className="block py-2 px-3 md:p-0 text-gray-500 rounded md:bg-transparent md:hover:text-gray-900" aria-current="page">Usuarios</p>
+                  </Link>
+                </li>   
+                <li>
+                  <Link to={'/admin/clients/'}>
+                    <p href="" className="block py-2 px-3 md:p-0 text-gray-500 rounded md:bg-transparent md:hover:text-gray-900" aria-current="page">Clientes</p>
+                  </Link>
+                </li>             
+              </IsAdmin>
             </ul>
           </div>
         </div>
