@@ -2,13 +2,15 @@ import Header from "../components/Header";
 import { Container } from "../components/container/Container";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { getLocalStorage } from "../utils/myLocalStorage";
 
 const NewClient = () => {
   const [formData, setFormData] = useState({
     dni: '',
     telefono: '',
-    rol: '',
+    user: '',
   });
+  const [list, setList] = useState('')
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,6 +22,10 @@ const NewClient = () => {
     
   }, [formData])
 
+  useEffect(()=>{
+    userList()
+  },[])
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
@@ -27,11 +33,16 @@ const NewClient = () => {
       const data = {
         dni: formData.dni,
         phoneNumber: formData.telefono,
-        user: formData.rol,
+        user: formData.user,
       }
-      const response = await axios.post('http://localhost:4000/api/clients/', data)
+      const response = await axios.post('http://localhost:4000/api/clients/', data,{
+        headers: {
+          'Authorization': getLocalStorage('user').token,
+        }
+      })
       if (response?.status === 201){
         console.log('creado correctamente');
+        alert('Cliente Registrado')
       }
       else{
         console.log('error');
@@ -40,6 +51,26 @@ const NewClient = () => {
       console.log(error);
     }
   };
+  
+  const userList = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/api/users',{
+        headers: {
+          'Authorization': `${await getLocalStorage('user').token}`
+        }})
+      if (response.status === 200){
+        setList(response.data)
+      }
+      else{
+        console.log('error');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  
+
 
   return (
     <>
@@ -71,15 +102,15 @@ const NewClient = () => {
                 />
 
                 <select
-                  name="rol"
-                  value={formData.rol}
+                  name="user"
+                  value={formData.user}
                   onChange={handleChange}
                   className="border border-gray-300 p-2 rounded-md flex-1"
                 >
-                  <option value="">Seleccionar Rol</option>
-                  <option value="administrador">Administrador</option>
-                  <option value="usuario">Usuario</option>
-                  <option value="invitado">Invitado</option>
+                  <option value="">Seleccionar Usuario</option>
+                  {list ?list.map((user)=>{
+                    return <option key={user.id} value={user.id}>{user.name}</option>
+                  }):''}
                 </select>
               </div>
 
