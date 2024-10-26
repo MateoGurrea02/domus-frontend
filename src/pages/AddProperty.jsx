@@ -1,6 +1,7 @@
+import axios from "axios";
 import Header from "../components/Header";
 import { Container } from "../components/container/Container";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const NewProperty = () => {
   const [formData, setFormData] = useState({
@@ -20,10 +21,31 @@ const NewProperty = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  useEffect(()=> {console.log(formData);
+  }, [formData])
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Aquí puedes agregar la lógica para manejar el envío del formulario
-    console.log(formData);
+    try{
+      const data = {
+        address: formData.direccion,
+        propertyType: 1, //probando
+        price: formData.montoPorMes,
+        status: 1, //probando
+        description: formData.descripcion,
+        size: null,
+        agent: null
+      }
+      const response = await axios.post('http://localhost:4000/api/properties/', data)
+      if (response?.status === 201){
+        console.log('creado correctamente');
+      }
+      else{
+        console.log('error');
+      }
+    } catch(error){
+      console.log(error);
+    }
   };
 
   const autoResizeTextarea = () => {
@@ -67,7 +89,6 @@ const NewProperty = () => {
                 <option value="alquiler">Alquiler</option>
                 <option value="venta">Venta</option>
                 </select>   
-                
                 <input
                   type="text"
                   name="direccion"
@@ -76,7 +97,6 @@ const NewProperty = () => {
                   onChange={handleChange}
                   className="border border-gray-300 p-2 rounded-md flex-1 h-12"
                 />
-
                 <input
                   type="number"
                   name="montoPorMes"
@@ -86,7 +106,6 @@ const NewProperty = () => {
                   min="0"
                   className="border border-gray-300 p-2 rounded-md flex-1 h-12"
                 />
-
                 <textarea
                   ref={descripcionRef}
                   name="descripcion"
@@ -97,7 +116,6 @@ const NewProperty = () => {
                   style={{ overflow: 'hidden' }}
                 />
               </div>
-
               <div className="flex justify-center mt-4">
                 <button
                   type="submit"

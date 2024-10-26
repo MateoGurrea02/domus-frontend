@@ -1,8 +1,46 @@
 import Header from "../components/Header";
 import { Container } from "../components/container/Container";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const NewClient = () => {
+  const [formData, setFormData] = useState({
+    dni: '',
+    telefono: '',
+    rol: '',
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    
+  };
+
+  useEffect(() => {
+    console.log(formData);
+    
+  }, [formData])
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(formData);
+    try{
+      const data = {
+        dni: formData.dni,
+        phoneNumber: formData.telefono,
+        user: formData.rol,
+      }
+      const response = await axios.post('http://localhost:4000/api/clients/', data)
+      if (response?.status === 201){
+        console.log('creado correctamente');
+      }
+      else{
+        console.log('error');
+      }
+    } catch(error){
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <Header />
@@ -12,14 +50,14 @@ const NewClient = () => {
             <h2 className="text-2xl font-semibold mb-6 text-center">
               Registrar Nuevo Cliente
             </h2>
-            <form onSubmit={''} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div className="flex flex-wrap gap-4">
                 <input
                   type="text"
                   name="dni"
                   placeholder="DNI"
-                  value={''}
-                  onChange={''}
+                  value={formData.dni}
+                  onChange={handleChange}
                   className="border border-gray-300 p-2 rounded-md flex-1"
                 />
 
@@ -27,15 +65,15 @@ const NewClient = () => {
                   type="tel"
                   name="telefono"
                   placeholder="Teléfono"
-                  value={''}
-                  onChange={''}
+                  value={formData.telefono}
+                  onChange={handleChange}
                   className="border border-gray-300 p-2 rounded-md flex-1"
                 />
 
                 <select
                   name="rol"
-                  value={''}
-                  onChange={''}
+                  value={formData.rol}
+                  onChange={handleChange}
                   className="border border-gray-300 p-2 rounded-md flex-1"
                 >
                   <option value="">Seleccionar Rol</option>
