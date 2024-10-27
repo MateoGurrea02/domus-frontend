@@ -2,6 +2,7 @@ import axios from "axios";
 import Header from "../components/Header";
 import { Container } from "../components/container/Container";
 import { useState, useRef, useEffect } from "react";
+import { getLocalStorage } from "../utils/myLocalStorage";
 
 const NewProperty = () => {
   const [formData, setFormData] = useState({
@@ -36,7 +37,14 @@ const NewProperty = () => {
         size: null,
         agent: null
       }
-      const response = await axios.post('http://localhost:4000/api/properties/', data)
+      console.log(getLocalStorage('user').token);
+
+      const response = await axios.post('http://localhost:4000/api/properties/', data, {
+        headers: {
+          'Authorization': getLocalStorage('user').token,
+        }
+      })
+      
       if (response?.status === 201){
         console.log('creado correctamente');
       }
