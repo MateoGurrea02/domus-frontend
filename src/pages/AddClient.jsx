@@ -109,6 +109,9 @@ const NewClient = () => {
                 >
                   <option value="">Seleccionar Usuario</option>
                   {list ?list.map((user)=>{
+                    if(user.type <= 3){
+                      return ''
+                    }
                     return <option key={user.id} value={user.id}>{user.name}</option>
                   }):''}
                 </select>

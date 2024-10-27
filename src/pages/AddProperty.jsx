@@ -34,8 +34,7 @@ const NewProperty = () => {
         price: formData.montoPorMes,
         status: 1, //probando
         description: formData.descripcion,
-        size: null,
-        agent: null
+        size: 123,//probando
       }
       console.log(getLocalStorage('user').token);
 
