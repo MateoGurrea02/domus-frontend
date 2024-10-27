@@ -1,5 +1,7 @@
 import React, { useState,useContext,useNavigate,useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { UserContext } from '../../context/UserContext'
+import logo from '../../assets/Image 10.png'
 
 function Register() {
     const [userName, setUserName] = useState('')
@@ -27,10 +29,10 @@ function Register() {
     }, []);
 
   return (
-    <div class="flex flex-col w-full md:w-1/2 xl:w-2/5 2xl:w-2/5 3xl:w-1/3 mx-auto p-8 md:p-10 2xl:p-12 3xl:p-14 bg-[#ffffff] rounded-2xl shadow-xl">
+    <div class="flex flex-col w-full h-full mt-40 md:w-1/2 xl:w-2/5 2xl:w-2/5 3xl:w-1/3 mx-auto p-8 md:p-10 2xl:p-12 3xl:p-14 bg-[#ffffff] rounded-2xl shadow-xl">
     <div class="flex flex-row gap-3 pb-4">
         <div>
-            <img src="/favicon.svg" width="50" alt="Logo"/>
+            <img src={logo} width="50" alt="Logo"/>
         </div>
          <h1 class="text-3xl font-bold text-[#4B5563] text-[#4B5563] my-auto">DOMUS</h1>
 
@@ -58,7 +60,9 @@ function Register() {
         <button type="submit" class="w-full text-[#FFFFFF] bg-[#4F46E5] focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-6">Registrarse</button>
         <div class="text-sm font-light text-[#6B7280] ">
             <span className='pr-1'>¿Ya tienes una cuenta?</span>
-            <a href="/login" class="font-medium text-[#4F46E5] hover:underline">Iniciar Sesion</a>
+            <Link to='/login'>
+                <p class="font-medium text-[#4F46E5] hover:underline">Iniciar Sesion</p>
+            </Link>
 
         </div>
     </form>

@@ -1,7 +1,9 @@
 import React from 'react'
 import { useContext, useState, useEffect } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from '../../context/UserContext'
+import logo from '../../assets/Image 10.png'
+
 
 function Login() {
     const {isAuth} = useContext(UserContext)
@@ -22,10 +24,10 @@ function Login() {
     }, []);
 
   return (
-    <div className="flex flex-col w-full md:w-1/2 xl:w-2/5 2xl:w-2/5 3xl:w-1/3 mx-auto p-8 md:p-10 2xl:p-12 3xl:p-14 bg-[#ffffff] rounded-2xl shadow-xl">
+    <div className="flex flex-col w-full mt-40  md:w-1/2 xl:w-2/5 2xl:w-2/5 3xl:w-1/3 mx-auto p-8 md:p-10 2xl:p-12 3xl:p-14 bg-[#ffffff] rounded-2xl shadow-xl">
         <div className="flex flex-row gap-3 pb-4">
             <div>
-                <img src="/favicon.svg" width="50" alt="Logo"/>
+                <img src={logo} width="50" alt="Logo"/>
             </div>
             <h1 className="text-3xl font-bold text-[#4B5563] text-[#4B5563] my-auto">DOMUS</h1>
         </div>
@@ -47,7 +49,9 @@ function Login() {
             <button type="submit" className="w-full text-[#FFFFFF] bg-[#4F46E5] focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-6">Login</button>
             <div className="text-sm font-light text-[#6B7280] ">
                 <span className='pr-1'>¿No tienes una cuenta?</span>
-                <a href="#" className="font-medium text-[#4F46E5] hover:underline">Registrate</a>
+                <Link to='/register'>
+                  <p className="font-medium text-[#4F46E5] hover:underline">Registrate</p>
+                </Link>
             </div>
         </form>
     </div>

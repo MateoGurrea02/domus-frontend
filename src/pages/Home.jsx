@@ -3,6 +3,7 @@ import foto from '../assets/casa2.jpg'
 import CardHome from '../components/CardHome'
 import Footer from '../components/Footer'
 import foto2 from '../assets/casa1.jpeg'
+import { Link } from 'react-router-dom'
 
 const Home = () => {
   return(
@@ -23,12 +24,11 @@ const Home = () => {
             </p>
 
             <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <a
+              <Link to="/property-search"
                 className="block w-full rounded px-12 py-3 text-xl font-medium text-amber-900 bg-amber-500 hover:bg-amber-600 shadow sm:w-auto"
-                href="#"
               >
                 Ver Mas
-              </a>
+              </Link>
             </div>
           </div>
         </div>
