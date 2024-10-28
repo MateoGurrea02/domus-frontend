@@ -46,7 +46,7 @@ const routes = [
   },
   {
     path:"/admin/users/",
-    element: <IsAdminRoute><UserList/></IsAdminRoute>,
+    element: <IsAdminOrAgentRoute><UserList/></IsAdminOrAgentRoute>,
   },
   {
     path:"/admin/clients/",

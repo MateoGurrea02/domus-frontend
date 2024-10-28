@@ -1,9 +1,61 @@
 import Header from "../../components/Header";
 import { Container } from "../../components/container/Container";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { setLocalStorage, getLocalStorage } from "../../utils/myLocalStorage";
 
 const NewPropertySale = () => {
+  const baseURL = 'http://127.0.0.1:4000/api'
+  const [clients, setClients] = useState('')
+  const [properties, setProperties] = useState('')
+  const [formData, setFormData] = useState({
+    property:'',
+    client: '',
+    date: '10/08/2024',
+    amount: '',
+    status: 2,
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const venta = (await axios.post(`${baseURL}/sales`, formData,{
+      headers:{
+        'Authorization': `${getLocalStorage('user').token}`
+      }
+    }).then())
+    console.log(venta);
+  };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    
+  };
+
+  const clientResponse = async ()=>{
+    const response = await axios.get(`${baseURL}/clients`,{
+      headers:{
+        'Authorization': `${getLocalStorage('user').token}`
+      }
+    })
+    setClients(response.data)
+  }
+
+  const propertyResponse = async ()=>{
+    const response = await axios.get(`${baseURL}/properties`,{
+      headers:{
+        'Authorization': `${getLocalStorage('user').token}`
+      }
+    })
+    setProperties(response.data)
+  }
+
+  useEffect(() => {
+    clientResponse()
+    propertyResponse()
+  }, [])
+  
+  
   return (
     <>
       <Header />
@@ -16,46 +68,48 @@ const NewPropertySale = () => {
             <h2 className="text-2xl font-semibold mb-6 text-center">
               Registrar Nueva Venta
             </h2>
-            <form onSubmit={''} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div className="flex flex-wrap gap-4">
                 <select
-                  name="propiedad"
+                  name="property"
                   value={''}
-                  onChange={''}
+                  onChange={handleChange}
                   className="border border-gray-300 p-2 rounded-md flex-1"
                 >
-                  <option value="">Seleccionar Propiedad</option>
-                  <option value="propiedad1">Propiedad 1</option>
-                  <option value="propiedad2">Propiedad 2</option>
-                  <option value="propiedad3">Propiedad 3</option>
+                  {properties ?
+                    properties.map((property)=>{
+                      return(
+                        <option value={property.id}>{`${property.address}(${property.status})`}</option>
+                      )
+                    })
+                  :
+                  ''
+                  }
                 </select>
 
                 <select
-                  name="cliente"
-                  value={''}
-                  onChange={''}
+                  name="client"
+                  onChange={handleChange}
                   className="border border-gray-300 p-2 rounded-md flex-1"
                 >
                   <option value="">Seleccionar Cliente</option>
-                  <option value="cliente1">Cliente 1</option>
-                  <option value="cliente2">Cliente 2</option>
-                  <option value="cliente3">Cliente 3</option>
+                  {clients ?
+                    clients.map((client)=>{
+                      return(
+                        <option value={client.id}>{client.user}</option>
+                      )
+                    })
+                  :
+                  ''
+                  }
                 </select>
 
-                <input
-                  type="date"
-                  name="fecha"
-                  value={''}
-                  onChange={''}
-                  className="border border-gray-300 p-2 rounded-md flex-1"
-                />
 
                 <input
                   type="number"
-                  name="monto"
+                  name="amount"
                   placeholder="Monto Total"
-                  value={''}
-                  onChange={''}
+                  onChange={handleChange}
                   min="0"
                   className="border border-gray-300 p-2 rounded-md flex-1"
                 />
