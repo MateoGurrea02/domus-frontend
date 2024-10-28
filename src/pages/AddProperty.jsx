@@ -11,6 +11,7 @@ const NewProperty = () => {
     descripcion: '',
     tipoPropiedad: '',
     tipoContrato: '',
+    dimension: '',
   });
 
   const descripcionRef = useRef(null);
@@ -30,14 +31,14 @@ const NewProperty = () => {
     try{
       const data = {
         address: formData.direccion,
-        propertyType: 1, //probando
+        propertyType: parseInt(formData.tipoPropiedad), 
         price: formData.montoPorMes,
-        status: 1, //probando
+        status: parseInt(formData.tipoContrato),  
         description: formData.descripcion,
-        size: 123,//probando
+        size: formData.dimension,
       }
       console.log(getLocalStorage('user').token);
-
+      
       const response = await axios.post('http://localhost:4000/api/properties/', data, {
         headers: {
           'Authorization': getLocalStorage('user').token,
@@ -81,26 +82,35 @@ const NewProperty = () => {
                 className="border border-gray-300 p-2 rounded-md flex-1 h-12"
                 >
                 <option value="">Seleccionar Tipo de Propiedad</option>
-                <option value="departamento">Departamento</option>
-                <option value="casa">Casa</option>
-                <option value="local_comercial">Local Comercial</option>
+                <option value={2}>Departamento</option>
+                <option value={1}>Casa</option>
+                <option value={3}>Local Comercial</option>
                 </select>
 
                 <select
                 name="tipoContrato"
                 value={formData.tipoContrato}
                 onChange={handleChange}
+                id="tipoContrato"
                 className="border border-gray-300 p-2 rounded-md flex-1 h-12"
                 >
                 <option value="">Seleccionar Tipo de Contrato</option>
-                <option value="alquiler">Alquiler</option>
-                <option value="venta">Venta</option>
+                <option value={3}>Alquiler</option>
+                <option value={2}>Venta</option>
                 </select>   
                 <input
                   type="text"
                   name="direccion"
                   placeholder="Dirección"
                   value={formData.direccion}
+                  onChange={handleChange}
+                  className="border border-gray-300 p-2 rounded-md flex-1 h-12"
+                />
+                <input
+                  type="text"
+                  name="dimension"
+                  placeholder="Dimension en m2"
+                  value={formData.dimension}
                   onChange={handleChange}
                   className="border border-gray-300 p-2 rounded-md flex-1 h-12"
                 />
