@@ -1,57 +1,27 @@
+import { Container } from "../../components/container/Container"
 import Header from '../../components/Header'
-import MyTable from '../../components/MyTable'
+import MyTableProperty from '../../components/MyTableProperty'
 import TitlePage from '../../components/title/Title'
+import { Link } from "react-router-dom"
 
 const PropertyList = ()=>{
-  let titleList = ['Dirección','Tipo','Precio','Estado','Tamaño','Agente','Acciones']
-  let data = [
-    {
-        address: 'Calle Mayor 123, Madrid',
-        type: 'Apartamento',
-        price: '250,000 EUR',
-        status: 'Disponible',
-        size: '80 m²',
-        agent: 'Carlos Gómez'
-    },
-    {
-        address: 'Avenida Libertad 45, Barcelona',
-        type: 'Casa',
-        price: '500,000 EUR',
-        status: 'Vendido',
-        size: '150 m²',
-        agent: 'María Torres'
-    },
-    {
-        address: 'Calle San Juan 22, Sevilla',
-        type: 'Dúplex',
-        price: '320,000 EUR',
-        status: 'En construcción',
-        size: '120 m²',
-        agent: 'Lucía Fernández'
-    },
-    {
-        address: 'Paseo de la Castellana 89, Madrid',
-        type: 'Oficina',
-        price: '1,200,000 EUR',
-        status: 'Disponible',
-        size: '300 m²',
-        agent: 'Juan Pérez'
-    },
-    {
-        address: 'Calle Gran Vía 10, Valencia',
-        type: 'Local comercial',
-        price: '750,000 EUR',
-        status: 'En alquiler',
-        size: '200 m²',
-        agent: 'Laura Sánchez'
-    }
-                    
-  ]
+  
   return(
     <>
       <Header/>
       <TitlePage title='Lista de Propiedades'/>
-      <MyTable titleList={titleList} data={data}/>
+      <div className='flex mx-auto flex w-full px-5 pb-5 md:max-w-[92%] lg:max-w-[80%]'>
+        <Link to={'/new-property/'} className='px-1'>
+          <button type="button" className="text-amber-900 bg-amber-500 hover:bg-amber-600 focus:ring-4 font-medium rounded-lg text-sm px-4 py-2">Agregar Propiedad</button>
+        </Link>
+        <Link to={'/new-rental-sale/'} className='px-1'>
+          <button type="button" className="text-amber-900 bg-amber-500 hover:bg-amber-600 focus:ring-4 font-medium rounded-lg text-sm px-4 py-2">Registar Alquiler</button>
+        </Link>
+        <Link to={'/new-property-sale/'} className='px-1'>
+          <button type="button" className="text-amber-900 bg-amber-500 hover:bg-amber-600 focus:ring-4 font-medium rounded-lg text-sm px-4 py-2">Registar Venta</button>
+        </Link>
+      </div>
+      <MyTableProperty/>
     </>
   )
 }

@@ -1,8 +1,8 @@
-import Header from "../components/Header";
-import { Container } from "../components/container/Container";
+import Header from "../../components/Header";
+import { Container } from "../../components/container/Container";
 import { useState } from "react";
 
-const NewRental = () => {
+const NewRentalSale = () => {
   return (
     <>
       <Header />
@@ -81,7 +81,7 @@ const NewRental = () => {
   );
 };
 
-export default NewRental;
+export default NewRentalSale;
 
 
 

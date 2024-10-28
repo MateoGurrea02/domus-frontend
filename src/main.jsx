@@ -15,13 +15,14 @@ import ClientList from './pages/admin/ClientList.jsx';
 import PropertyList from './pages/admin/PropertyList.jsx';
 import RentalSearch from './pages/RentalSearch.jsx';
 import PropertySearch from './pages/PropertySearch.jsx';
-import NewRental from './pages/AddRental.jsx';
 import NewClient from './pages/AddClient.jsx';
-import NewProperty from './pages/AddProperty.jsx';
+import NewProperty from './pages/admin/NewProperty.jsx';
 import UserProvider from "./context/UserContext";
 import { IsLogged } from "./utils/IsLogged.jsx";
 import { IsUser } from './utils/IsUser.jsx';
 import { IsAdminRoute } from './utils/IsAdmin.jsx';
+import NewRentalSale from './pages/admin/NewRentalSale.jsx';
+import { IsAdminOrAgentRoute } from './utils/IsAdminOrAgent.jsx';
 
 AOS.init();
 
@@ -44,15 +45,15 @@ const routes = [
   },
   {
     path:"/admin/users/",
-    element: <UserList/>,
+    element: <IsAdminRoute><UserList/></IsAdminRoute>,
   },
   {
     path:"/admin/clients/",
-    element: <ClientList/>,
+    element: <IsAdminOrAgentRoute><ClientList/></IsAdminOrAgentRoute>,
   },
   {
     path:"/admin/properties/",
-    element: <PropertyList/>,
+    element: <IsAdminOrAgentRoute><PropertyList/></IsAdminOrAgentRoute>,
   },
   {
     path:"/property/detail",
@@ -67,8 +68,8 @@ const routes = [
     element: <PropertySearch/>,
   },
   {
-    path:"/new-rental/",
-    element: <NewRental/>,
+    path:"/new-rental-sale/",
+    element:<IsAdminOrAgentRoute><NewRentalSale/></IsAdminOrAgentRoute>,
   },
   {
     path:"/new-client/",

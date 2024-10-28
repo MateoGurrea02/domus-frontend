@@ -1,5 +1,5 @@
 import Header from '../../components/Header'
-import MyTable from '../../components/MyTable'
+import MyTable from '../../components/MyTableProperty'
 import TitlePage from '../../components/title/Title'
 import { Link } from 'react-router-dom'
 

@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { UserContext } from "../context/UserContext";
 import { Link } from 'react-router-dom';
 import { IsAdmin } from '../utils/IsAdmin';
+import { IsAdminOrAgent } from '../utils/IsAdminOrAgent';
 
 
 const Header = () => {
@@ -53,18 +54,25 @@ const Header = () => {
                   <p href="#" className="block py-2 px-3 md:p-0 text-gray-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-gray-900 ">Alquileres</p>
                 </Link>
               </li>
-              <IsAdmin>
+              <IsAdminOrAgent>
+                <IsAdmin>
                 <li>
-                  <Link to={'/admin/users/'}>
-                    <p href="" className="block py-2 px-3 md:p-0 text-gray-500 rounded md:bg-transparent md:hover:text-gray-900" aria-current="page">Usuarios</p>
-                  </Link>
+                    <Link to={'/admin/users/'}>
+                      <p href="" className="block py-2 px-3 md:p-0 text-gray-500 rounded md:bg-transparent md:hover:text-gray-900" aria-current="page">Usuarios</p>
+                    </Link>
                 </li>   
+                </IsAdmin>
                 <li>
                   <Link to={'/admin/clients/'}>
                     <p href="" className="block py-2 px-3 md:p-0 text-gray-500 rounded md:bg-transparent md:hover:text-gray-900" aria-current="page">Clientes</p>
                   </Link>
-                </li>             
-              </IsAdmin>
+                </li>      
+                <li>
+                  <Link to={'/admin/properties'}>
+                    <p href="" className="block py-2 px-3 md:p-0 text-gray-500 rounded md:bg-transparent md:hover:text-gray-900" aria-current="page">Administrar Propiedades</p>
+                  </Link>
+                </li>          
+              </IsAdminOrAgent>
             </ul>
           </div>
         </div>

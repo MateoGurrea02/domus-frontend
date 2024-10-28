@@ -1,5 +1,5 @@
-import Header from "../components/Header";
-import { Container } from "../components/container/Container";
+import Header from "../../components/Header";
+import { Container } from "../../components/container/Container";
 import { useState, useRef } from "react";
 
 const NewProperty = () => {
