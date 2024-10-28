@@ -22,6 +22,7 @@ import { IsLogged } from "./utils/IsLogged.jsx";
 import { IsUser } from './utils/IsUser.jsx';
 import { IsAdminRoute } from './utils/IsAdmin.jsx';
 import NewRentalSale from './pages/admin/NewRentalSale.jsx';
+import NewPropertySale from './pages/admin/NewPropertySale.jsx';
 import { IsAdminOrAgentRoute } from './utils/IsAdminOrAgent.jsx';
 
 AOS.init();
@@ -70,6 +71,10 @@ const routes = [
   {
     path:"/new-rental-sale/",
     element:<IsAdminOrAgentRoute><NewRentalSale/></IsAdminOrAgentRoute>,
+  },
+  {
+    path:"/new-property-sale/",
+    element:<IsAdminOrAgentRoute><NewPropertySale/></IsAdminOrAgentRoute>,
   },
   {
     path:"/new-client/",

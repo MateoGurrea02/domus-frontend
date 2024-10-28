@@ -3,7 +3,7 @@ import { Container } from "../../components/container/Container";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const NewRentalSale = () => {
+const NewPropertySale = () => {
   return (
     <>
       <Header />
@@ -14,7 +14,7 @@ const NewRentalSale = () => {
         <div className="flex justify-center mt-5">
           <div className="bg-white p-8 shadow-lg rounded-md w-full">
             <h2 className="text-2xl font-semibold mb-6 text-center">
-              Registrar Nuevo Alquiler
+              Registrar Nueva Venta
             </h2>
             <form onSubmit={''} className="space-y-4">
               <div className="flex flex-wrap gap-4">
@@ -44,15 +44,7 @@ const NewRentalSale = () => {
 
                 <input
                   type="date"
-                  name="fechaInicio"
-                  value={''}
-                  onChange={''}
-                  className="border border-gray-300 p-2 rounded-md flex-1"
-                />
-
-                <input
-                  type="date"
-                  name="fechaFin"
+                  name="fecha"
                   value={''}
                   onChange={''}
                   className="border border-gray-300 p-2 rounded-md flex-1"
@@ -60,13 +52,14 @@ const NewRentalSale = () => {
 
                 <input
                   type="number"
-                  name="montoMensual"
-                  placeholder="Monto Mensual"
+                  name="monto"
+                  placeholder="Monto Total"
                   value={''}
                   onChange={''}
                   min="0"
                   className="border border-gray-300 p-2 rounded-md flex-1"
                 />
+
               </div>
 
               <div className="flex justify-center mt-4">
@@ -74,7 +67,7 @@ const NewRentalSale = () => {
                   type="submit"
                   className="bg-blue-500 text-white px-6 py-2 mt-10 rounded-md hover:bg-blue-600 transition"
                 >
-                  Registrar Alquiler
+                  Registrar Venta
                 </button>
               </div>
             </form>
@@ -85,7 +78,4 @@ const NewRentalSale = () => {
   );
 };
 
-export default NewRentalSale;
-
-
-
+export default NewPropertySale;
