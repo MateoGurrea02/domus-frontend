@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { UserContext } from "../context/UserContext";
 import { Link } from 'react-router-dom';
 import { IsAdmin } from '../utils/IsAdmin';
+import { IsAdminOrAgent } from '../utils/IsAdminOrAgent';
 
 
 const Header = () => {
@@ -12,10 +13,10 @@ const Header = () => {
     <>
       <nav className="bg-white border-gray-200 px-10 py-5 md:px-20 md:py-0" >
         <div className="flex flex-wrap items-center justify-between mx-auto">
-          <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
-              <img src={logo} className="h-10 md:h-24" alt="Domus logo" />
-              <span className="self-center text-2xl font-semibold whitespace-nowrap"></span>
-          </a>
+          <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
+            <img src={logo} className="h-10 md:h-24" alt="Domus logo" />
+            <span className="self-center text-2xl font-semibold whitespace-nowrap"></span>
+          </Link>
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             {isAuth ?
               <button type="button" onClick={logout} className="text-amber-900 bg-amber-500 hover:bg-amber-600 focus:ring-4 font-medium rounded-lg text-sm px-4 py-2 text-center">Cerrar sesion</button>
@@ -53,18 +54,18 @@ const Header = () => {
                   <p href="#" className="block py-2 px-3 md:p-0 text-gray-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-gray-900 ">Alquileres</p>
                 </Link>
               </li>
-              <IsAdmin>
-                <li>
-                  <Link to={'/admin/users/'}>
-                    <p href="" className="block py-2 px-3 md:p-0 text-gray-500 rounded md:bg-transparent md:hover:text-gray-900" aria-current="page">Usuarios</p>
-                  </Link>
-                </li>   
+              <IsAdminOrAgent>
                 <li>
                   <Link to={'/admin/clients/'}>
                     <p href="" className="block py-2 px-3 md:p-0 text-gray-500 rounded md:bg-transparent md:hover:text-gray-900" aria-current="page">Clientes</p>
                   </Link>
-                </li>             
-              </IsAdmin>
+                </li>      
+                <li>
+                  <Link to={'/admin/properties'}>
+                    <p href="" className="block py-2 px-3 md:p-0 text-gray-500 rounded md:bg-transparent md:hover:text-gray-900" aria-current="page">Administrar Propiedades</p>
+                  </Link>
+                </li>          
+              </IsAdminOrAgent>
             </ul>
           </div>
         </div>

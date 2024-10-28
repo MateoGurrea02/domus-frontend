@@ -1,5 +1,5 @@
 import Header from '../../components/Header'
-import MyTable from '../../components/MyTable'
+import MyTable from '../../components/MyTableProperty'
 import TitlePage from '../../components/title/Title'
 const RentalList = ()=>{
   let titleList = ['Propiedad','Cliente','Fecha Inicio','Fecha Fin','Monto Mensual','Estado','Acciones']

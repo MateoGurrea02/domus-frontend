@@ -1,8 +1,9 @@
 import axios from "axios";
-import Header from "../components/Header";
-import { Container } from "../components/container/Container";
 import { useState, useRef, useEffect } from "react";
 import { getLocalStorage } from "../utils/myLocalStorage";
+import Header from "../../components/Header";
+import { Container } from "../../components/container/Container";
+import { Link } from "react-router-dom";
 
 const NewProperty = () => {
   const [formData, setFormData] = useState({
@@ -68,6 +69,11 @@ const NewProperty = () => {
     <>
       <Header />
       <Container>
+     
+        <Link to={'/admin/properties/'}>
+          <button type="button" className="text-black bg-gray-200 hover:bg-gray-400 focus:ring-4 font-medium rounded-lg text-sm px-4 py-2 text-center">Volver</button>
+        </Link>
+      
         <div className="flex justify-center mt-5">
           <div className="bg-white p-8 shadow-lg rounded-md w-full">
             <h2 className="text-2xl font-semibold mb-6 text-center">
