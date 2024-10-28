@@ -50,7 +50,7 @@ const UserProvider = ({ children }) => {
       "name": data.user,
       "email": data.email,
       "password": data.password,
-      "type":4,
+      "type": 4,
     }).then())
     console.log(registerPetition)
 

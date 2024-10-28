@@ -1,8 +1,77 @@
 import Header from "../components/Header";
 import { Container } from "../components/container/Container";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { getLocalStorage } from "../utils/myLocalStorage";
 
 const NewClient = () => {
+  const [formData, setFormData] = useState({
+    dni: '',
+    telefono: '',
+    user: '',
+  });
+  const [list, setList] = useState('')
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    
+  };
+
+  useEffect(() => {
+    console.log(formData);
+    
+  }, [formData])
+
+  useEffect(()=>{
+    userList()
+  },[])
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(formData);
+    try{
+      const data = {
+        dni: formData.dni,
+        phoneNumber: formData.telefono,
+        user: formData.user,
+      }
+      const response = await axios.post('http://localhost:4000/api/clients/', data,{
+        headers: {
+          'Authorization': getLocalStorage('user').token,
+        }
+      })
+      if (response?.status === 201){
+        console.log('creado correctamente');
+        alert('Cliente Registrado')
+      }
+      else{
+        console.log('error');
+      }
+    } catch(error){
+      console.log(error);
+    }
+  };
+  
+  const userList = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/api/users',{
+        headers: {
+          'Authorization': `${await getLocalStorage('user').token}`
+        }})
+      if (response.status === 200){
+        setList(response.data)
+      }
+      else{
+        console.log('error');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  
+
+
   return (
     <>
       <Header />
@@ -12,14 +81,14 @@ const NewClient = () => {
             <h2 className="text-2xl font-semibold mb-6 text-center">
               Registrar Nuevo Cliente
             </h2>
-            <form onSubmit={''} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div className="flex flex-wrap gap-4">
                 <input
                   type="text"
                   name="dni"
                   placeholder="DNI"
-                  value={''}
-                  onChange={''}
+                  value={formData.dni}
+                  onChange={handleChange}
                   className="border border-gray-300 p-2 rounded-md flex-1"
                 />
 
@@ -27,21 +96,24 @@ const NewClient = () => {
                   type="tel"
                   name="telefono"
                   placeholder="Teléfono"
-                  value={''}
-                  onChange={''}
+                  value={formData.telefono}
+                  onChange={handleChange}
                   className="border border-gray-300 p-2 rounded-md flex-1"
                 />
 
                 <select
-                  name="rol"
-                  value={''}
-                  onChange={''}
+                  name="user"
+                  value={formData.user}
+                  onChange={handleChange}
                   className="border border-gray-300 p-2 rounded-md flex-1"
                 >
-                  <option value="">Seleccionar Rol</option>
-                  <option value="administrador">Administrador</option>
-                  <option value="usuario">Usuario</option>
-                  <option value="invitado">Invitado</option>
+                  <option value="">Seleccionar Usuario</option>
+                  {list ?list.map((user)=>{
+                    if(user.type <= 3){
+                      return ''
+                    }
+                    return <option key={user.id} value={user.id}>{user.name}</option>
+                  }):''}
                 </select>
               </div>
 
