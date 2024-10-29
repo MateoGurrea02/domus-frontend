@@ -81,7 +81,7 @@ const routes = [
     element: <NewClient/>,
   },
   {
-    path:"/new-property/",
+    path:"/new-property/:id?/:isFromEdition?",
     element: <NewProperty	/>,
   },
 ]
