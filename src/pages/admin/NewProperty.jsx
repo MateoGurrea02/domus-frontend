@@ -6,6 +6,8 @@ import { Container } from "../../components/container/Container";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 const NewProperty = () => {
+  const [propertyType, setPropertyType] = useState()
+  const [statusType, setStatusType] = useState()
   const [formData, setFormData] = useState({
     direccion: '',
     montoPorMes: '',
@@ -16,8 +18,10 @@ const NewProperty = () => {
   });
   const {id, isFromEdition} = useParams();
   const navigate = useNavigate();
+
   
   useEffect(() => {
+    getDataSelect()
     async function fetchData(){
       try{
         const response = await axios.get(`http://localhost:4000/api/properties/find/${id}`, {
@@ -32,8 +36,8 @@ const NewProperty = () => {
           montoPorMes: data.price,
           direccion: data.address,
           descripcion: data.description,
-          tipoPropiedad: data.propertyType,
-          tipoContrato: data.status,
+          tipoPropiedad: data.PropertyType.id,
+          tipoContrato: data.PropertyStatus.id,
           dimension: data.size,
         }));
       }
@@ -116,6 +120,25 @@ const NewProperty = () => {
     }
   };
 
+  const getDataSelect= async ()=>{
+    const propertyType = await axios.get(`http://localhost:4000/api/propertyType`, {
+      headers: {
+        'Authorization': getLocalStorage('user').token,
+      }
+    })
+    if(propertyType?.status === 200){
+      setPropertyType(propertyType.data);
+    }
+    const propertyStatus = await axios.get('http://localhost:4000/api/propertyStatus',{
+        headers: {
+          'Authorization': getLocalStorage('user').token,
+        }
+    })
+    if(propertyStatus?.status === 200){
+      setStatusType(propertyStatus.data);
+    }
+  }
+
   const autoResizeTextarea = () => {
     const textarea = descripcionRef.current;
     if (textarea) {
@@ -147,9 +170,12 @@ const NewProperty = () => {
                 className="border border-gray-300 p-2 rounded-md flex-1 h-12"
                 >
                 <option value="">Seleccionar Tipo de Propiedad</option>
-                <option value={2}>Departamento</option>
-                <option value={1}>Casa</option>
-                <option value={3}>Local Comercial</option>
+                {propertyType ? propertyType.map((type)=>{
+                    return(
+                      <option value={type.id}>{type.type}</option>
+                )
+                })
+                :''}
                 </select>
 
                 <select
@@ -160,8 +186,12 @@ const NewProperty = () => {
                 className="border border-gray-300 p-2 rounded-md flex-1 h-12"
                 >
                 <option value="">Seleccionar Tipo de Contrato</option>
-                <option value={3}>Alquiler</option>
-                <option value={2}>Venta</option>
+                {statusType ? statusType.map((status)=>{
+                    return(
+                      <option value={status.id}>{status.status}</option>
+                )
+                })
+                :''}
                 </select>   
                 <input
                   type="text"

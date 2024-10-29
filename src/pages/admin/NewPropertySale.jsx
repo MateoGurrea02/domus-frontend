@@ -79,7 +79,7 @@ const NewPropertySale = () => {
                   {properties ?
                     properties.map((property)=>{
                       return(
-                        <option value={property.id}>{`${property.address}(${property.status})`}</option>
+                        <option value={property.id}>{`${property.address}(${property.PropertyStatus.status})`}</option>
                       )
                     })
                   :
@@ -96,7 +96,7 @@ const NewPropertySale = () => {
                   {clients ?
                     clients.map((client)=>{
                       return(
-                        <option value={client.id}>{client.user}</option>
+                        <option value={client.id}>{client.User.name}</option>
                       )
                     })
                   :

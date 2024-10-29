@@ -108,7 +108,7 @@ const MyTableProperty = () => {
                         </td>
                         <td className="p-4 align-middle text-start w-max border-b-[1px] py-5 pl-5 pr-4 border-white/10">
                           <p className="text-sm font-medium">
-                            {item.propertyType}
+                            {item.PropertyType.type}
                           </p>
                         </td>
                         <td className="p-4 align-middle text-start w-max border-b-[1px] py-5 pl-5 pr-4 border-white/10">
@@ -118,7 +118,7 @@ const MyTableProperty = () => {
                         </td>
                         <td className="p-4 align-middle text-start w-max border-b-[1px] py-5 pl-5 pr-4 border-white/10">
                           <p className="text-sm font-medium">
-                            {item.status}
+                            {item.PropertyStatus.status}
                           </p>
                         </td>
                         <td className="p-4 align-middle text-start w-max border-b-[1px] py-5 pl-5 pr-4 border-white/10">
@@ -128,7 +128,7 @@ const MyTableProperty = () => {
                         </td>
                         <td className="p-4 align-middle text-start w-max border-b-[1px] py-5 pl-5 pr-4 border-white/10">
                           <p className="text-sm font-medium">
-                            {item.agent}
+                            {item.Agent.User.name}
                           </p>
                         </td>
                         <td className="align-middle text-end border-b-[1px] py-5 pl-5  border-white/10">
