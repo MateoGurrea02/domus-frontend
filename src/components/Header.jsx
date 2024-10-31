@@ -4,10 +4,13 @@ import { UserContext } from "../context/UserContext";
 import { Link } from 'react-router-dom';
 import { IsAdmin } from '../utils/IsAdmin';
 import { IsAdminOrAgent } from '../utils/IsAdminOrAgent';
+import { IsClient } from '../utils/IsClient';
+import { getLocalStorage } from '../utils/myLocalStorage';
 
 
 const Header = () => {
   const {isAuth,logout} = useContext(UserContext)
+  const user = getLocalStorage('user')
 
   return(
     <>
@@ -54,6 +57,13 @@ const Header = () => {
                   <p href="#" className="block py-2 px-3 md:p-0 text-gray-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-gray-900 ">Alquileres</p>
                 </Link>
               </li>
+              <IsClient>
+                <li>
+                  <Link to={`/properties/client/${user.id}`}>
+                    <p href="" className="block py-2 px-3 md:p-0 text-gray-500 rounded md:bg-transparent md:hover:text-gray-900" aria-current="page">Mis Propiedades</p>
+                  </Link>
+                </li>    
+              </IsClient>
               <IsAdminOrAgent>
                 <li>
                   <Link to={'/admin/clients/'}>

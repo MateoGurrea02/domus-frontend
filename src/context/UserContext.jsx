@@ -28,7 +28,7 @@ const UserProvider = ({ children }) => {
         }
       }).then())
       if(tokenVerify.status == 200){
-        let data = {name:tokenVerify.data.name,type:tokenVerify.data.type,token:token.data.token}
+        let data = {id:tokenVerify.data.id,name:tokenVerify.data.name,type:tokenVerify.data.type,token:token.data.token}
         setUser(data)
         setIsAuth(true)
         setLocalStorage('user',data)

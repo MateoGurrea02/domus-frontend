@@ -16,10 +16,10 @@ const Card = ({ data }) => {
       <div className="p-4 flex flex-col justify-between w-full">
         <div className="flex flex-col">
           <h2 className="text-xl font-semibold text-gray-600 font-semibold mb-1">{data.title}</h2>
-          <p className="text-gray-600 font-semibold">Dirección: <span className='font-normal'>{data.direction}</span></p>
-          <p className="text-gray-600 font-semibold">Tipo: <span className='font-normal'>{data.type}</span></p>
+          <p className="text-gray-600 font-semibold">Dirección: <span className='font-normal'>{data.address}</span></p>
+          <p className="text-gray-600 font-semibold">Tipo: <span className='font-normal'>{data.PropertyType.type}</span></p>
           <p className="text-gray-600 font-semibold">Tamaño: <span className='font-normal'>{data.size}</span></p>
-          <p className="text-gray-600 font-semibold">Estado: <span className='font-normal'>{data.state}</span></p>
+          <p className="text-gray-600 font-semibold">Estado: <span className='font-normal'>{data.PropertyStatus.status}</span></p>
           <p className="text-gray-600 font-semibold">Descripción: <span className='font-normal'>{data.description}</span></p>
         </div>
 
