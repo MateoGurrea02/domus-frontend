@@ -15,7 +15,7 @@ import ClientList from './pages/admin/ClientList.jsx';
 import PropertyList from './pages/admin/PropertyList.jsx';
 import RentalSearch from './pages/RentalSearch.jsx';
 import PropertySearch from './pages/PropertySearch.jsx';
-import NewClient from './pages/AddClient.jsx';
+import NewClient from './pages/admin/AddClient.jsx';
 import NewProperty from './pages/admin/NewProperty.jsx';
 import UserProvider from "./context/UserContext";
 import { IsLogged } from "./utils/IsLogged.jsx";
@@ -78,11 +78,11 @@ const routes = [
   },
   {
     path:"/new-client/",
-    element: <NewClient/>,
+    element: <IsAdminOrAgentRoute><NewClient/></IsAdminOrAgentRoute>,
   },
   {
     path:"/new-property/:id?/:isFromEdition?",
-    element: <NewProperty	/>,
+    element:<IsAdminOrAgentRoute><NewProperty	/></IsAdminOrAgentRoute>,
   },
 ]
 
