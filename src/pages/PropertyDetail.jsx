@@ -1,36 +1,61 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useState, useEffect } from "react"
+import { useParams } from "react-router-dom"
 import { UserContext } from "../context/UserContext"
 import Gallery from "../components/Gallery"
-import casa2 from '../assets/casa2.jpg'
-import casa from '../assets/casa.jpg'
-import casa1 from '../assets/casa1.jpeg'
 import RateStars from "../components/RateStars"
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import { Container } from "../components/container/Container"
+import { Link } from "react-router-dom"
+import axios from "axios"
 
 const PropertyDetail = ()=>{
   const { isAuth } = useContext(UserContext)
-  let list = [casa2,casa,casa1]
+  const [data, setData] = useState(false)
+  const { idProperty } = useParams()
+  const [isLoading, setIsLoading] = useState(false);
   const [show, setShow] = useState(false)
+
+  
+  useEffect(() => {
+    getProperty()
+    
+  }, [])
+  
+  const getProperty = async ()=>{
+    const data = await axios.get(`http://127.0.0.1:4000/api/properties/find/${idProperty}`)
+    if(data.status === 200){
+      setData(data.data)
+      setIsLoading(true)
+    }
+  }
+
   const handleDescription = ()=>{
     setShow(!show)
   }
   return (
     <>
       <Header/>
+      {isLoading?
+      
+      
       <Container>
+        <Link to={'/property-search/'}>
+          <button type="button" className="text-black bg-gray-200 hover:bg-gray-400 focus:ring-4 font-medium rounded-lg text-sm px-4 py-2 text-center">Volver</button>
+        </Link>
       <div className="flex flex-col mb-10">
         <div className="flex flex-col my-5">
-          <h6 class="mb-2 block font-sans text-xs md:text-base font-semibold uppercase leading-relaxed tracking-normal antialiased">Departamento Luminoso en el Centro</h6>
+          <h6 class="mb-2 block font-sans text-xs md:text-base font-semibold uppercase leading-relaxed tracking-normal antialiased"></h6>
           <div className="flex items-center">
             <RateStars rate={4}/>
-            <p className=""><span className="mx-2">•</span> Taito City, Tokyo, Japan</p>
+            <p className=""><span className="mx-2">•</span> {data?data.address:'Sin Direccion'}</p>
           </div>
         </div>
-        <Gallery imgMain={casa2} imgListSecondary={list}/>
+        <Gallery 
+          imgMain={data ? data.ImageProperties:''} 
+          />
         <div className="my-5">
-          <h2 className="text-amber-500 text-3xl md:text-5xl font-bold">Disponible</h2>
+          <h2 className="text-amber-500 text-3xl md:text-5xl font-bold">{data?data.PropertyStatus.status:'Diponible'}</h2>
           <h3 className="md:text-xl mt-10">Informacion</h3>
           <div className="flex mt-5">
             <div className="mr-5">
@@ -50,8 +75,8 @@ const PropertyDetail = ()=>{
             <p>Cancelación gratuita en las primeras 48 horas</p>
           </div>
           <p className={`text-xs md:text-base md:w-3/4 mt-5 cursor-pointer`} onClick={handleDescription}>
-            <span className={`duration-1000 ${show ? '':'line-clamp-5'}`}>Este acogedor departamento de 2 habitaciones se encuentra en una ubicación privilegiada en el corazón de la ciudad, ideal para quienes buscan comodidad y cercanía a las principales zonas comerciales y de entretenimiento. La propiedad cuenta con grandes ventanales que permiten la entrada de abundante luz natural, creando un ambiente cálido y acogedor en todas las áreas.La sala de estar se conecta de manera abierta con el comedor y la cocina, formando un espacio amplio y funcional, perfecto para recibir visitas o disfrutar de momentos en familia. La cocina está equipada con electrodomésticos modernos y acabados en granito, ofreciendo un diseño elegante y práctico.
-            Las dos habitaciones son de buen tamaño, con closets empotrados y excelente iluminación. La habitación principal tiene acceso a un pequeño balcón, ideal para relajarse y disfrutar de la vista a la ciudad. El baño principal cuenta con acabados de primera calidad, ducha tipo lluvia y detalles en mármol.Este departamento también ofrece acceso a las amenidades del Edificio Sol, que incluyen un gimnasio totalmente equipado, áreas comunes de descanso, una terraza en la azotea con zona de BBQ, y servicio de vigilancia las 24 horas.
+            <span className={`duration-1000 ${show ? '':'line-clamp-5'}`}>
+              {data?data.description:''}
             </span>
             <span className="text-amber-500 font-semibold">{show ? "  Ver Menos" : "Ver Mas"}</span>
           </p>
@@ -83,6 +108,9 @@ const PropertyDetail = ()=>{
         
       </div>
       </Container>
+      :
+      <h1>Cargando</h1>
+      }
       <Footer/>
     </>
   )

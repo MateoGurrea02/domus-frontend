@@ -52,11 +52,6 @@ const Header = () => {
                   <p className="block py-2 px-3 md:p-0 text-gray-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-gray-900 ">Propiedades</p>
                 </Link>
               </li>
-              <li>
-                <Link to={"/rental-search"}>
-                  <p href="#" className="block py-2 px-3 md:p-0 text-gray-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-gray-900 ">Alquileres</p>
-                </Link>
-              </li>
               <IsClient>
                 <li>
                   <Link to={`/properties/client/${user.id}`}>

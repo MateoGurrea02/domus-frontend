@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import RateStars from './RateStars';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const Card = ({ data }) => {
   const [liked, setLiked] = useState(false);
-
   const handleLikeClick = () => {
     setLiked(!liked);
   };
 
   return (
-    <div className="relative flex flex-col lg:flex-row bg-gray-100 shadow-md rounded-lg overflow-hidden w-full mx-auto">
+    <Link to={`/property/detail/${data.id}`} className="relative flex flex-col lg:flex-row bg-gray-100 shadow-md rounded-lg overflow-hidden w-full mx-auto">
       <div className=" w-full lg:w-2/5">
-      <img src={data.imageUrl} alt={data.title} className="w-full h-full object-cover" />
+      <img src={data.ImageProperties.length == 0 ? 'https://st2.depositphotos.com/1277251/7958/i/450/depositphotos_79588208-stock-photo-house-for-sale-board-with.jpg' : data.ImageProperties[0].path  } alt={data.adrres} className="w-full h-full object-cover" />
       </div>
       <div className="p-4 flex flex-col justify-between w-full">
         <div className="flex flex-col">
@@ -52,7 +53,7 @@ const Card = ({ data }) => {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

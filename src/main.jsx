@@ -8,12 +8,10 @@ import 'aos/dist/aos.css'
 import Home from './pages/Home.jsx'
 import Login from './pages/login/Login.jsx'
 import Register from './pages/register/Register.jsx'
-import RentalList from './pages/admin/RentalList.jsx'
 import PropertyDetail from './pages/PropertyDetail.jsx';
 import UserList from './pages/admin/UserList.jsx';
 import ClientList from './pages/admin/ClientList.jsx';
 import PropertyList from './pages/admin/PropertyList.jsx';
-import RentalSearch from './pages/RentalSearch.jsx';
 import PropertySearch from './pages/PropertySearch.jsx';
 import NewClient from './pages/admin/AddClient.jsx';
 import NewProperty from './pages/admin/NewProperty.jsx';
@@ -43,10 +41,6 @@ const routes = [
     element: <IsLogged><Register/></IsLogged>,
   },
   {
-    path:"/admin/rentals/",
-    element: <IsAdminRoute><RentalList/></IsAdminRoute>,
-  },
-  {
     path:"/admin/users/",
     element: <IsAdminOrAgentRoute><UserList/></IsAdminOrAgentRoute>,
   },
@@ -59,12 +53,8 @@ const routes = [
     element: <IsAdminOrAgentRoute><PropertyList/></IsAdminOrAgentRoute>,
   },
   {
-    path:"/property/detail",
+    path:"/property/detail/:idProperty",
     element: <PropertyDetail/>,
-  },
-  {
-    path:"/rental-search/",
-    element: <RentalSearch/>,
   },
   {
     path:"/property-search/",
