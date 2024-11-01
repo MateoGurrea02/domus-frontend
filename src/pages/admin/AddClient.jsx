@@ -3,7 +3,7 @@ import { Container } from "../../components/container/Container";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { getLocalStorage } from "../../utils/myLocalStorage";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const NewClient = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +12,37 @@ const NewClient = () => {
     user: '',
   });
   const [list, setList] = useState('')
+  const {id, isFromEdition} = useParams()
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('')
+
+
+  useEffect(() => {
+    async function fetchData(){
+      try{
+        const response = await axios.get(`http://localhost:4000/api/clients/${id}`, {
+          headers: {
+            'Authorization': getLocalStorage('user').token,
+          }
+        })
+        const data = response?.data;
+        console.log(data);
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          dni: data.dni,
+          telefono: data.phoneNumber,
+          user: data.User.id,
+        }));
+        setEmail(data.User.email)
+      }
+      catch(error){
+        console.log(error);
+      }
+    }
+    if (isFromEdition){
+      fetchData()
+    }
+  }, [isFromEdition])
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,7 +58,7 @@ const NewClient = () => {
     userList()
   },[])
 
-  const handleSubmit = async (e) => {
+  const handleCreate = async (e) => {
     e.preventDefault();
     console.log(formData);
     try{
@@ -42,8 +73,37 @@ const NewClient = () => {
         }
       })
       if (response?.status === 201){
+          alert('Cliente Registrado')
+        navigate(-1)
         console.log('creado correctamente');
-        alert('Cliente Registrado')
+      }
+      else{
+        console.log('error');
+      }
+    } catch(error){
+      console.log(error);
+    }
+  };
+
+  const editClient = async (e) => {
+    e.preventDefault();
+    try{
+      const data = {
+        id: id,
+        dni: formData.dni,
+        phoneNumber: formData.telefono,
+        user: formData.user,
+        email: email,
+      }
+      const response = await axios.put(`http://localhost:4000/api/clients/update`, data, {
+        headers: {
+          'Authorization': getLocalStorage('user').token,
+        }
+      })
+      
+      if (response?.status === 200){
+        console.log('editado correctamente');
+        navigate(-1)
       }
       else{
         console.log('error');
@@ -85,7 +145,7 @@ const NewClient = () => {
             <h2 className="text-2xl font-semibold mb-6 text-center">
               Registrar Nuevo Cliente
             </h2>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={isFromEdition ? editClient : handleCreate} className="space-y-4">
               <div className="flex flex-wrap gap-4">
                 <input
                   type="text"
@@ -126,7 +186,7 @@ const NewClient = () => {
                   type="submit"
                   className="bg-blue-500 text-white px-6 py-2 mt-10 rounded-md hover:bg-blue-600 transition"
                 >
-                  Registrar Cliente
+                {isFromEdition ? 'Editar Cliente' : 'Registrar Cliente'}
                 </button>
               </div>
             </form>

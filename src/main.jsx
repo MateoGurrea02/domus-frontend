@@ -69,7 +69,7 @@ const routes = [
     element:<IsAdminOrAgentRoute><NewPropertySale/></IsAdminOrAgentRoute>,
   },
   {
-    path:"/new-client/",
+    path:"/new-client/:id?/:isFromEdition?",
     element: <IsAdminOrAgentRoute><NewClient/></IsAdminOrAgentRoute>,
   },
   {
