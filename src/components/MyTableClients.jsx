@@ -10,7 +10,7 @@ const MyTableProperty = () => {
   const navigate = useNavigate();
 
   const handleEdit = (id) => {  
-    navigate(`/new-property/${id}/${true}`)
+    navigate(`/new-client/${id}/${true}`)
   }
   
   const handleDelete = async (e)=>{
