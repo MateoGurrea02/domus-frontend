@@ -4,11 +4,28 @@ import { setLocalStorage, getLocalStorage } from "../utils/myLocalStorage";
 
 
 
-const MyTableUsers = () => {
+const MyTableAgents = () => {
   const [data, setData] = useState([]);
+  
+  const handleDelete = async (e)=>{
+    let id = await e.target.id
+    let confirmar = confirm('Estas seguro que deseas eliminar el agente?')
+    if(confirmar){
+      await axios.delete(`http://127.0.0.1:4000/api/agents/${id}`,{
+      headers: {
+          'Authorization': getLocalStorage('user').token
+        }
+      }).then(
+        getAgents()
+      )
+      .catch(error => console.error(error))
+      window.location.reload()
 
-  const getUsers = async ()=>{
-    const data = (await axios.get(`http://127.0.0.1:4000/api/users`,{
+    }
+  }
+
+  const getAgents = async ()=>{
+    const data = (await axios.get(`http://127.0.0.1:4000/api/agents`,{
       headers: {
         'Authorization': getLocalStorage('user').token
       }
@@ -19,10 +36,10 @@ const MyTableUsers = () => {
   }
 
   useEffect(() => {
-    getUsers()
+    getAgents()
   }, []);
 
-  let titleList = ['Nombre','Correo','Rol']
+  let titleList = ['Nombre','Correo Electronico']
   
   return (
     <div className="flex flex-col justify-center items-center">
@@ -63,7 +80,7 @@ const MyTableUsers = () => {
                       </tr>
                     </thead>
                     <tbody className="[&amp;_tr:last-child]:border-0">
-                      {data ? data.map((item)=>{
+                      {data ? data.map((item,index)=>{
                         return(
                       <tr className="border-b border-zinc-800 transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted px-6 dark:hover:bg-gray-100">
                         <td className="p-4 align-middle  w-max border-b-[1px] py-5 pl-5 pr-4 border-white/10">
@@ -80,21 +97,27 @@ const MyTableUsers = () => {
                         </td>
                         <td className="p-4 align-middle text-start w-max border-b-[1px] py-5 pl-5 pr-4 border-white/10">
                           <p className="text-sm font-medium">
-                            {item.name}
+                            {item.User.name}
                           </p>
                         </td>
                         <td className="p-4 align-middle text-start w-max border-b-[1px] py-5 pl-5 pr-4 border-white/10">
                           <p className="text-sm font-medium">
-                            {item.email}
+                            {item.User.email}
                           </p>
                         </td>
-                        <td className="p-4 align-middle text-start w-max border-b-[1px] py-5 pl-5 pr-4 border-white/10">
-                          <p className="text-sm font-medium">
-                            {item.UserType.type}
-                          </p>
+                        <td className="align-middle text-end border-b-[1px] py-5 pl-5  border-white/10">
+                          <div className="flex justify-around">
+                              <button 
+                                className="hover:scale-110" 
+                                onClick={handleDelete}       
+                              >
+                                <svg id={item.id} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="red" className="size-6">
+                                  <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                </svg>
+                              </button>
+                          </div>
                         </td>
-                        
-                        </tr>
+                      </tr>
                      )}):''} 
                     </tbody>
                   </table>
@@ -148,4 +171,4 @@ const MyTableUsers = () => {
   );
 };
 
-export default MyTableUsers;
+export default MyTableAgents;

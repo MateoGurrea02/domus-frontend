@@ -61,8 +61,8 @@ const Header = () => {
               </IsClient>
               <IsAdminOrAgent>
                 <li>
-                  <Link to={'/admin/clients/'}>
-                    <p href="" className="block py-2 px-3 md:p-0 text-gray-500 rounded md:bg-transparent md:hover:text-gray-900" aria-current="page">Clientes</p>
+                  <Link to={'/admin/users/'}>
+                    <p href="" className="block py-2 px-3 md:p-0 text-gray-500 rounded md:bg-transparent md:hover:text-gray-900" aria-current="page">Administrar Usuarios</p>
                   </Link>
                 </li>      
                 <li>

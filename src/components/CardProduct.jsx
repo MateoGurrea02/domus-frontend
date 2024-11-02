@@ -19,15 +19,18 @@ const Card = ({ data }) => {
           <h2 className="text-xl font-semibold text-gray-600 font-semibold mb-1">{data.title}</h2>
           <p className="text-gray-600 font-semibold">Dirección: <span className='font-normal'>{data.address}</span></p>
           <p className="text-gray-600 font-semibold">Tipo: <span className='font-normal'>{data.PropertyType.type}</span></p>
-          <p className="text-gray-600 font-semibold">Tamaño: <span className='font-normal'>{data.size}</span></p>
+          <p className="text-gray-600 font-semibold">Tamaño: <span className='font-normal'>{data.size} mts²</span></p>
           <p className="text-gray-600 font-semibold">Estado: <span className='font-normal'>{data.PropertyStatus.status}</span></p>
-          <p className="text-gray-600 font-semibold">Descripción: <span className='font-normal'>{data.description}</span></p>
+          <div className='flex'>
+            <p className="text-gray-600 font-semibold">Descripción:</p>
+            <span className='ml-1 font-normal text-gray-600 line-clamp-2'>{data.description}</span>
+          </div>
         </div>
 
         <div className="flex justify-between items-center mt-4 w-full">
           <h3 className="text-xl font-bold text-violet-600">Precio: ${data.price}</h3>
           <div className="flex items-center ml-auto">
-            <RateStars rate={data.rate} />
+            <RateStars rate={data.rating} />
             <button
               onClick={handleLikeClick}
               className={`flex items-center justify-center rounded-full p-2 transition-all ${

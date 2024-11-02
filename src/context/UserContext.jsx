@@ -9,6 +9,7 @@ export const UserContext = createContext();
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState('')
   const [isAuth,setIsAuth] = useState(false)
+  const [errorLogin, setErrorLogin] = useState(false)
   const navigate = useNavigate()
   const baseURL = 'http://127.0.0.1:4000/api'
 
@@ -20,19 +21,26 @@ const UserProvider = ({ children }) => {
   }, []);
 
   const login = async (usuario, password)=>{
-    const token = (await axios.post(`${baseURL}/login`, {email:usuario, password:password}).then())
+    const token = await axios.post(`${baseURL}/login`, {email:usuario, password:password}).catch(
+      (error) => {
+        setErrorLogin(true)
+        console.log(error)
+        }
+    )
     if(token.status === 200){
       const tokenVerify = (await axios.get(`${baseURL}/verifyToken`,{
         headers: {
           'Authorization': `${await token.data.token}`
         }
-      }).then())
+      }))
       if(tokenVerify.status == 200){
         let data = {id:tokenVerify.data.id,name:tokenVerify.data.name,type:tokenVerify.data.type,token:token.data.token}
         setUser(data)
         setIsAuth(true)
         setLocalStorage('user',data)
         navigate('/')
+      }else{
+        setErrorLogin(true)
       }
     }
     
@@ -46,13 +54,16 @@ const UserProvider = ({ children }) => {
   }
 
   const register = async (data)=>{
-    const registerPetition = (await axios.post(`${baseURL}/register`, {    
+    const registerPetition = await axios.post(`${baseURL}/register`, {    
       "name": data.user,
       "email": data.email,
       "password": data.password,
       "type": 4,
-    }).then())
-    console.log(registerPetition)
+    }).catch(
+      (error) => {
+        setErrorRegister(true)
+      }
+    )
 
     if(registerPetition.status == 201){
       navigate('/login')
@@ -61,7 +72,7 @@ const UserProvider = ({ children }) => {
   
 
   return (
-    <UserContext.Provider value={{ user,setUser,login,register,logout,isAuth}}>
+    <UserContext.Provider value={{ user,setUser,login,register,logout,isAuth,errorLogin,setErrorLogin}}>
       {children}
     </UserContext.Provider>
   )

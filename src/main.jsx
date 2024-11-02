@@ -24,6 +24,8 @@ import NewPropertySale from './pages/admin/NewPropertySale.jsx';
 import { IsAdminOrAgentRoute } from './utils/IsAdminOrAgent.jsx';
 import { IsClientRoute } from './utils/IsClient.jsx';
 import MyProperties from './pages/MyProperties.jsx';
+import AgentsList from './pages/admin/AgentsList.jsx';
+import AddClient from './pages/admin/AddAgents.jsx';
 
 AOS.init();
 
@@ -49,6 +51,10 @@ const routes = [
     element: <IsAdminOrAgentRoute><ClientList/></IsAdminOrAgentRoute>,
   },
   {
+    path:"/admin/agents/",
+    element: <IsAdminOrAgentRoute><AgentsList/></IsAdminOrAgentRoute>,
+  },
+  {
     path:"/admin/properties/",
     element: <IsAdminOrAgentRoute><PropertyList/></IsAdminOrAgentRoute>,
   },
@@ -71,6 +77,10 @@ const routes = [
   {
     path:"/new-client/:id?/:isFromEdition?",
     element: <IsAdminOrAgentRoute><NewClient/></IsAdminOrAgentRoute>,
+  },
+  {
+    path:"/new-agent/",
+    element: <IsAdminOrAgentRoute><AddClient/></IsAdminOrAgentRoute>,
   },
   {
     path:"/new-property/:id?/:isFromEdition?",

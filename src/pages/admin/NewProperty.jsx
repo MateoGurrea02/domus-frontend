@@ -18,7 +18,7 @@ const NewProperty = () => {
   });
   const {id, isFromEdition} = useParams();
   const navigate = useNavigate();
-
+// address', 'price', 'description', 'size', 'title', 'rating', 'bedrooms', 'bathrooms', 'maxResidents'
   
   useEffect(() => {
     getDataSelect()

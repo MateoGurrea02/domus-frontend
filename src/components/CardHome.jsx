@@ -1,3 +1,5 @@
+import React from "react"
+import { Link } from "react-router-dom"
 const CardHome = ({image, title, description, reverse=true, btn}) => {
   return(
     <section class="text-gray-600 body-font bg-gray-300 rounded-xl p-20 my-20">
@@ -10,9 +12,9 @@ const CardHome = ({image, title, description, reverse=true, btn}) => {
             {title}
           </h1>
           <p class="mb-8 leading-relaxed">{description}</p>
-          <div class="flex justify-center">
+          <Link to={"/property-search"} class="flex justify-center">
             <button class="inline-flex border-0 py-2 px-6 focus:outline-none text-amber-900 bg-amber-500 hover:bg-amber-600 rounded text-lg">{btn}</button>
-          </div>
+          </Link>
         </div>
       </div>
     </section>

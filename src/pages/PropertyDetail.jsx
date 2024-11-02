@@ -45,9 +45,9 @@ const PropertyDetail = ()=>{
         </Link>
       <div className="flex flex-col mb-10">
         <div className="flex flex-col my-5">
-          <h6 class="mb-2 block font-sans text-xs md:text-base font-semibold uppercase leading-relaxed tracking-normal antialiased"></h6>
+          <h6 class="mb-2 block font-sans text-xs md:text-base font-semibold uppercase leading-relaxed tracking-normal antialiased">{data.title}</h6>
           <div className="flex items-center">
-            <RateStars rate={4}/>
+            <RateStars rate={data.rating}/>
             <p className=""><span className="mx-2">•</span> {data?data.address:'Sin Direccion'}</p>
           </div>
         </div>
@@ -63,7 +63,11 @@ const PropertyDetail = ()=>{
                 <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
               </svg>
             </div>
-            <p className="md:text-xl">6 personas<span className="mx-2">•</span>2 habitaciones<span className="mx-2">•</span>1 baño</p>
+            <p className="md:text-xl">{data.maxResidents == 1 ? data.maxResidents+' persona': data.maxResidents+' personas'}
+              <span className="mx-2">•</span>{data.bedrooms == 1 ? data.bedrooms+' habitacion':data.bedrooms+' habitaciones' }
+              <span className="mx-2">•</span>{data.bathrooms == 1? data.bathrooms+' baño':data.bathrooms+' baños'}
+              <span className="mx-2">•</span>{data.size + ' mts²'}
+            </p>
           </div>
           <div className="flex mt-5">
             <div className="mr-5">

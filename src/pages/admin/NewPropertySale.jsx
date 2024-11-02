@@ -79,7 +79,7 @@ const NewPropertySale = () => {
                   {properties ?
                     properties.map((property)=>{
                       return(
-                        <option value={property.id}>{`${property.address}(${property.PropertyStatus.status})`}</option>
+                        <option value={property.id}>{`${property.title}(${property.address})`}</option>
                       )
                     })
                   :

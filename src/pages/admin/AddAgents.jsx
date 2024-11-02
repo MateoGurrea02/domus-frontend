@@ -5,16 +5,13 @@ import axios from "axios";
 import { getLocalStorage } from "../../utils/myLocalStorage";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
-const NewClient = () => {
+const AddClient = () => {
   const [formData, setFormData] = useState({
-    dni: '',
-    telefono: '',
     user: '',
   });
   const [list, setList] = useState('')
   const {id, isFromEdition} = useParams()
   const navigate = useNavigate();
-  const [email, setEmail] = useState('')
 
 
   useEffect(() => {
@@ -29,11 +26,8 @@ const NewClient = () => {
         console.log(data);
         setFormData((prevFormData) => ({
           ...prevFormData,
-          dni: data.dni,
-          telefono: data.phoneNumber,
           user: data.User.id,
         }));
-        setEmail(data.User.email)
       }
       catch(error){
         console.log(error);
@@ -49,11 +43,6 @@ const NewClient = () => {
     
   };
 
-  useEffect(() => {
-    console.log(formData);
-    
-  }, [formData])
-
   useEffect(()=>{
     userList()
   },[])
@@ -67,13 +56,13 @@ const NewClient = () => {
         phoneNumber: formData.telefono,
         user: formData.user,
       }
-      const response = await axios.post('http://localhost:4000/api/clients/', data,{
+      const response = await axios.post('http://localhost:4000/api/agents/', data,{
         headers: {
           'Authorization': getLocalStorage('user').token,
         }
       })
       if (response?.status === 201){
-          alert('Cliente Registrado')
+          alert('Agente Registrado')
         navigate(-1)
         console.log('creado correctamente');
       }
@@ -85,33 +74,6 @@ const NewClient = () => {
     }
   };
 
-  const editClient = async (e) => {
-    e.preventDefault();
-    try{
-      const data = {
-        id: id,
-        dni: formData.dni,
-        phoneNumber: formData.telefono,
-        user: formData.user,
-        email: email,
-      }
-      const response = await axios.put(`http://localhost:4000/api/clients/update`, data, {
-        headers: {
-          'Authorization': getLocalStorage('user').token,
-        }
-      })
-      
-      if (response?.status === 200){
-        console.log('editado correctamente');
-        navigate(-1)
-      }
-      else{
-        console.log('error');
-      }
-    } catch(error){
-      console.log(error);
-    }
-  };
   
   const userList = async () => {
     try {
@@ -137,7 +99,7 @@ const NewClient = () => {
     <>
       <Header />
       <Container>
-        <Link to={'/admin/Clients/'}>
+        <Link to={'/admin/agents/'}>
           <button type="button" className="text-black bg-gray-200 hover:bg-gray-400 focus:ring-4 font-medium rounded-lg text-sm px-4 py-2 text-center">Volver</button>
         </Link>
         <div className="flex justify-center mt-5">
@@ -147,24 +109,6 @@ const NewClient = () => {
             </h2>
             <form onSubmit={isFromEdition ? editClient : handleCreate} className="space-y-4">
               <div className="flex flex-wrap gap-4">
-                <input
-                  type="text"
-                  name="dni"
-                  placeholder="DNI"
-                  value={formData.dni}
-                  onChange={handleChange}
-                  className="border border-gray-300 p-2 rounded-md flex-1"
-                />
-
-                <input
-                  type="tel"
-                  name="telefono"
-                  placeholder="Teléfono"
-                  value={formData.telefono}
-                  onChange={handleChange}
-                  className="border border-gray-300 p-2 rounded-md flex-1"
-                />
-
                 <select
                   name="user"
                   value={formData.user}
@@ -173,10 +117,11 @@ const NewClient = () => {
                 >
                   <option value="">Seleccionar Usuario</option>
                   {list ?list.map((user)=>{
-                    if(user.type == 4){
+                    if(user.type == 3 ||user.type == 4){
                       return <option key={user.id} value={user.id}>{user.name}</option>
+                    }else{
+                      return ''
                     }
-                    return ''
                   }):''}
                 </select>
               </div>
@@ -197,4 +142,4 @@ const NewClient = () => {
   );
 };
 
-export default NewClient;
+export default AddClient;
