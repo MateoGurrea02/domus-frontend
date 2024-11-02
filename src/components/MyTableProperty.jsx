@@ -45,7 +45,7 @@ const MyTableProperty = () => {
     getProperties()
   }, []);
 
-  let titleList = ['Dirección','Tipo','Precio','Estado','Tamaño','Agente','Acciones']
+  let titleList = ['Nombre','Dirección','Tipo','Precio','Estado','Tamaño','Agente','Acciones']
   
   return (
     <div className="flex flex-col justify-center items-center">
@@ -100,6 +100,11 @@ const MyTableProperty = () => {
                               className="peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
                             ></button>
                           </div>
+                        </td>
+                        <td className="p-4 align-middle text-start w-max border-b-[1px] py-5 pl-5 pr-4 border-white/10">
+                          <p className="text-sm font-medium">
+                            {item.title}
+                          </p>
                         </td>
                         <td className="p-4 align-middle text-start w-max border-b-[1px] py-5 pl-5 pr-4 border-white/10">
                           <p className="text-sm font-medium">
