@@ -15,7 +15,19 @@ const NewProperty = () => {
     tipoPropiedad: '',
     tipoContrato: '',
     dimension: '',
+    titulo: '',
+    puntuacion: '',
+    habitaciones: '',
+    banios: '',
+    maxHabitantes: '',
   });
+  const [formDataImage, setFormDataImage] = useState({
+    image:'',
+    property:''
+  })
+  const [imageList,setImageList] =useState({
+    image:''
+  })
   const {id, isFromEdition} = useParams();
   const navigate = useNavigate();
 // address', 'price', 'description', 'size', 'title', 'rating', 'bedrooms', 'bathrooms', 'maxResidents'
@@ -39,6 +51,11 @@ const NewProperty = () => {
           tipoPropiedad: data.PropertyType.id,
           tipoContrato: data.PropertyStatus.id,
           dimension: data.size,
+          titulo: data.title,
+          puntuacion: data.rating,
+          habitaciones: data.bedrooms,
+          banios: data.bathrooms,
+          maxHabitantes: data.maxResidents,
         }));
       }
       catch(error){
@@ -57,7 +74,20 @@ const NewProperty = () => {
     if (e.target.name === "descripcion") {
       autoResizeTextarea();
     }
-  };
+  }; 
+
+  const handleChangeImage = (e) =>{
+    setImageList(
+      {...imageList, [e.target.name]: e.target.files}
+    )
+    // console.log(formDataImage.image)
+    
+  }
+
+  useEffect(() => {
+    console.log(formDataImage);
+    
+  },[formDataImage])
 
 
   const createProperty = async (e) => {
@@ -70,17 +100,24 @@ const NewProperty = () => {
         status: parseInt(formData.tipoContrato),  
         description: formData.descripcion,
         size: formData.dimension,
-      }
-      
+        title: formData.titulo,
+        rating: parseInt(formData.puntuacion),
+        bedrooms: parseInt(formData.habitaciones),
+        bathrooms: parseInt(formData.banios),
+        maxResidents: parseInt(formData.maxHabitantes),
+      }      
       const response = await axios.post('http://localhost:4000/api/properties/', data, {
         headers: {
           'Authorization': getLocalStorage('user').token,
         }
-      })
-      
+      })      
       if (response?.status === 201){
-        console.log('creado correctamente');
+        uploadPropertyImage(response.data.id,imageList.image[0])
+        uploadPropertyImage(response.data.id,imageList.image[1])
+        uploadPropertyImage(response.data.id,imageList.image[2])
+        uploadPropertyImage(response.data.id,imageList.image[3])
         navigate(-1)
+        console.log('creado correctamente');
       }
       else{
         console.log('error');
@@ -90,6 +127,30 @@ const NewProperty = () => {
     }
   };
 
+  const uploadPropertyImage = async (idProperty,image) => {
+    try{
+      formDataImage.property = idProperty      
+      formDataImage.image = image
+      
+      const response = await axios.post('http://localhost:4000/api/image', formDataImage, {
+        headers: {
+          'Authorization': getLocalStorage('user').token,
+          'Content-Type': 'multipart/form-data',
+        }
+      })
+      
+      if (response?.status === 201){
+        console.log('creado correctamente');
+        // navigate(-1)
+      }
+      else{
+        console.log('error');
+      }
+    } catch(error){
+      console.log(error);
+    }
+  };
+  
   const editProperty = async (e) => {
     e.preventDefault();
     try{
@@ -100,8 +161,7 @@ const NewProperty = () => {
         status: parseInt(formData.tipoContrato),  
         description: formData.descripcion,
         size: formData.dimension,
-      }
-      
+      }      
       const response = await axios.put(`http://localhost:4000/api/properties/update/${id}`, data, {
         headers: {
           'Authorization': getLocalStorage('user').token,
@@ -161,7 +221,7 @@ const NewProperty = () => {
             <h2 className="text-2xl font-semibold mb-6 text-center">
               Registrar Nueva Propiedad
             </h2>
-            <form onSubmit={isFromEdition ? editProperty : createProperty} className="space-y-4">
+            <form onSubmit={isFromEdition ? editProperty : createProperty} className="space-y-4" encType='multipart/form-data'>
               <div className="flex flex-wrap gap-4">
                 <select
                 name="tipoPropiedad"
@@ -224,10 +284,61 @@ const NewProperty = () => {
                   placeholder="Descripción"
                   value={formData.descripcion}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 rounded-md flex-1 h-12 resize-none w-full md:w-96"
+                  className="border border-gray-300 p-2 rounded-md resize-none w-full md:w-96 h-12"
                   style={{ overflow: 'hidden' }}
                 />
-              </div>
+                <input
+                  type="text"
+                  name="titulo"
+                  placeholder="Titulo"
+                  value={formData.titulo}
+                  onChange={handleChange}
+                  className="border border-gray-300 p-2 rounded-md flex-1 h-12"
+                />
+                <input
+                  type="number"
+                  name="puntuacion"
+                  placeholder="Puntuacion"
+                  value={formData.puntuacion}
+                  onChange={handleChange}
+                  min="0"
+                  className="border border-gray-300 p-2 rounded-md flex-1 h-12"
+                />
+                <input
+                  type="number"
+                  name="habitaciones"
+                  placeholder="Habitaciones"
+                  value={formData.habitaciones}
+                  onChange={handleChange}
+                  min="0"
+                  className="border border-gray-300 p-2 rounded-md flex-1 h-12"
+                />
+                <input
+                  type="number"
+                  name="banios"
+                  placeholder="Baños"
+                  value={formData.banios}
+                  onChange={handleChange}
+                  min="0"
+                  className="border border-gray-300 p-2 rounded-md flex-1 h-12"
+                />
+                <input
+                  type="number"
+                  name="maxHabitantes"
+                  placeholder="Residentes"
+                  value={formData.maxHabitantes}
+                  onChange={handleChange}
+                  min="0"
+                  className="border border-gray-300 p-2 rounded-md flex-1 h-12"
+                />
+                {isFromEdition?
+                ''
+                :<>
+                <label for="fileInput" className="border border-gray-300 p-3 cursor-pointer rounded-md flex-1 h-12">Seleccione 4 imagenes</label>
+                <input placeholder="Seleccione 4 imagenes" multiple type="file" id="fileInput" name="image" files={formDataImage.image} onChange={handleChangeImage} className="hidden" />
+                </>
+                }
+                </div>
               <div className="flex justify-center mt-4">
                 <button
                   type="submit"
