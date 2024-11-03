@@ -15,6 +15,12 @@ const NewProperty = () => {
     tipoPropiedad: '',
     tipoContrato: '',
     dimension: '',
+    titulo: '',
+    puntuacion: '',
+    habitaciones: '',
+    banios: '',
+    maxHabitantes: '',
+    imgPropiedad: '',
   });
   const {id, isFromEdition} = useParams();
   const navigate = useNavigate();
@@ -39,6 +45,11 @@ const NewProperty = () => {
           tipoPropiedad: data.PropertyType.id,
           tipoContrato: data.PropertyStatus.id,
           dimension: data.size,
+          titulo: data.title,
+          puntuacion: data.rating,
+          habitaciones: data.bedrooms,
+          banios: data.bathrooms,
+          maxHabitantes: data.maxResidents,
         }));
       }
       catch(error){
@@ -59,6 +70,11 @@ const NewProperty = () => {
     }
   };
 
+  useEffect(() => {
+    console.log(formData);
+    
+  },[formData])
+
 
   const createProperty = async (e) => {
     e.preventDefault();
@@ -70,9 +86,38 @@ const NewProperty = () => {
         status: parseInt(formData.tipoContrato),  
         description: formData.descripcion,
         size: formData.dimension,
+        title: formData.titulo,
+        rating: parseInt(formData.puntuacion),
+        bedrooms: parseInt(formData.habitaciones),
+        bathrooms: parseInt(formData.banios),
+        maxResidents: parseInt(formData.maxHabitantes),
+      }      
+      const response = await axios.post('http://localhost:4000/api/properties/', data, {
+        headers: {
+          'Authorization': getLocalStorage('user').token,
+        }
+      })      
+      if (response?.status === 201){
+        console.log('creado correctamente');
+        navigate(-1)
+      }
+      else{
+        console.log('error');
+      }
+    } catch(error){
+      console.log(error);
+    }
+  };
+
+  const uploadPropertyImage = async (e) => {
+    e.preventDefault();
+    try{
+      const data = {
+        property: 1, //prueba
+        path: formData.imgPropiedad, 
       }
       
-      const response = await axios.post('http://localhost:4000/api/properties/', data, {
+      const response = await axios.post('http://localhost:4000/api/image', data, {
         headers: {
           'Authorization': getLocalStorage('user').token,
         }
@@ -89,7 +134,7 @@ const NewProperty = () => {
       console.log(error);
     }
   };
-
+  
   const editProperty = async (e) => {
     e.preventDefault();
     try{
@@ -100,8 +145,7 @@ const NewProperty = () => {
         status: parseInt(formData.tipoContrato),  
         description: formData.descripcion,
         size: formData.dimension,
-      }
-      
+      }      
       const response = await axios.put(`http://localhost:4000/api/properties/update/${id}`, data, {
         headers: {
           'Authorization': getLocalStorage('user').token,
@@ -224,9 +268,54 @@ const NewProperty = () => {
                   placeholder="Descripción"
                   value={formData.descripcion}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 rounded-md flex-1 h-12 resize-none w-full md:w-96"
+                  className="border border-gray-300 p-2 rounded-md resize-none w-full md:w-96 h-12"
                   style={{ overflow: 'hidden' }}
                 />
+                <input
+                  type="text"
+                  name="titulo"
+                  placeholder="Titulo"
+                  value={formData.titulo}
+                  onChange={handleChange}
+                  className="border border-gray-300 p-2 rounded-md flex-1 h-12"
+                />
+                <input
+                  type="number"
+                  name="puntuacion"
+                  placeholder="Puntuacion"
+                  value={formData.puntuacion}
+                  onChange={handleChange}
+                  min="0"
+                  className="border border-gray-300 p-2 rounded-md flex-1 h-12"
+                />
+                <input
+                  type="number"
+                  name="habitaciones"
+                  placeholder="Habitaciones"
+                  value={formData.habitaciones}
+                  onChange={handleChange}
+                  min="0"
+                  className="border border-gray-300 p-2 rounded-md flex-1 h-12"
+                />
+                <input
+                  type="number"
+                  name="banios"
+                  placeholder="Baños"
+                  value={formData.banios}
+                  onChange={handleChange}
+                  min="0"
+                  className="border border-gray-300 p-2 rounded-md flex-1 h-12"
+                />
+                <input
+                  type="number"
+                  name="maxHabitantes"
+                  placeholder="Residentes"
+                  value={formData.maxHabitantes}
+                  onChange={handleChange}
+                  min="0"
+                  className="border border-gray-300 p-2 rounded-md flex-1 h-12"
+                />
+                <input type="file" id="fileInput" name="imgPropiedad" value={formData.imgPropiedad} onChange={handleChange} className="border border-gray-300 p-2 rounded-md flex-1 h-12" />
               </div>
               <div className="flex justify-center mt-4">
                 <button
