@@ -331,9 +331,14 @@ const NewProperty = () => {
                   min="0"
                   className="border border-gray-300 p-2 rounded-md flex-1 h-12"
                 />
+                {isFromEdition?
+                ''
+                :<>
                 <label for="fileInput" className="border border-gray-300 p-3 cursor-pointer rounded-md flex-1 h-12">Seleccione 4 imagenes</label>
                 <input placeholder="Seleccione 4 imagenes" multiple type="file" id="fileInput" name="image" files={formDataImage.image} onChange={handleChangeImage} className="hidden" />
-              </div>
+                </>
+                }
+                </div>
               <div className="flex justify-center mt-4">
                 <button
                   type="submit"
