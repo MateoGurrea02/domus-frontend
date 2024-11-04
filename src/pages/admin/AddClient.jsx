@@ -173,7 +173,7 @@ const NewClient = () => {
                 >
                   <option value="">Seleccionar Usuario</option>
                   {list ?list.map((user)=>{
-                    if(user.type == 4){
+                    if(user.UserType.id == 4){
                       return <option key={user.id} value={user.id}>{user.name}</option>
                     }
                     return ''
