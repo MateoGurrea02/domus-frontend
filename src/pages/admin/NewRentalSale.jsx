@@ -96,9 +96,9 @@ const NewRentalSale = () => {
                 >
                   <option value="">Seleccionar Propiedad</option>
                   {properties.map((property) => (
-                    <option key={property.id} value={property.id}>
-                      {`${property.title}(${property.address})`}
-                    </option>
+                    property.PropertyStatus.id == 1?
+                    <option key={property.id} value={property.id}>{`${property.title} (${property.address})`}</option>
+                    :''
                   ))}
                 </select>
 

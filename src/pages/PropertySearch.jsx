@@ -62,9 +62,11 @@ const PropertySearch = () => {
               <span className="font-semibold">{data.length}</span> Propiedades a la venta
             </h3>
             {data.map((item) => (
+              item.PropertyStatus.id == 1?
               <div key={item.id} className="px-5 pb-5">
                 <CardProduct data={item} />
               </div>
+              :''
             ))}
           </div>
         </div>

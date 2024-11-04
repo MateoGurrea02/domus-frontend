@@ -95,7 +95,9 @@ const NewPropertySale = () => {
                 >
                   <option value="">Seleccionar Propiedad</option>
                   {properties.map((property) => (
+                    property.PropertyStatus.id == 1?
                     <option key={property.id} value={property.id}>{`${property.title} (${property.address})`}</option>
+                    :''
                   ))}
                 </select>
 
