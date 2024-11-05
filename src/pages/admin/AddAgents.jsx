@@ -5,7 +5,7 @@ import axios from "axios";
 import { getLocalStorage } from "../../utils/myLocalStorage";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
-const AddClient = () => {
+const AddAgents = () => {
   const [formData, setFormData] = useState({
     user: '',
   });
@@ -17,7 +17,7 @@ const AddClient = () => {
   useEffect(() => {
     async function fetchData(){
       try{
-        const response = await axios.get(`http://localhost:4000/api/clients/${id}`, {
+        const response = await axios.get(`http://localhost:4000/api/agents/${id}`, {
           headers: {
             'Authorization': getLocalStorage('user').token,
           }
@@ -52,8 +52,6 @@ const AddClient = () => {
     console.log(formData);
     try{
       const data = {
-        dni: formData.dni,
-        phoneNumber: formData.telefono,
         user: formData.user,
       }
       const response = await axios.post('http://localhost:4000/api/agents/', data,{
@@ -105,9 +103,9 @@ const AddClient = () => {
         <div className="flex justify-center mt-5">
           <div className="bg-white p-8 shadow-lg rounded-md w-full">
             <h2 className="text-2xl font-semibold mb-6 text-center">
-              Registrar Nuevo Cliente
+              Registrar Nuevo Agente
             </h2>
-            <form onSubmit={isFromEdition ? editClient : handleCreate} className="space-y-4">
+            <form onSubmit={handleCreate} className="space-y-4">
               <div className="flex flex-wrap gap-4">
                 <select
                   name="user"
@@ -117,7 +115,7 @@ const AddClient = () => {
                 >
                   <option value="">Seleccionar Usuario</option>
                   {list ?list.map((user)=>{
-                    if(user.type == 3 ||user.type == 4){
+                    if(user.UserType.id == 3 ||user.UserType.id == 4){
                       return <option key={user.id} value={user.id}>{user.name}</option>
                     }else{
                       return ''
@@ -131,7 +129,7 @@ const AddClient = () => {
                   type="submit"
                   className="bg-blue-500 text-white px-6 py-2 mt-10 rounded-md hover:bg-blue-600 transition"
                 >
-                {isFromEdition ? 'Editar Cliente' : 'Registrar Cliente'}
+                Registrar Agente
                 </button>
               </div>
             </form>
@@ -142,4 +140,4 @@ const AddClient = () => {
   );
 };
 
-export default AddClient;
+export default AddAgents;
